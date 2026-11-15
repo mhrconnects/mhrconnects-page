@@ -21,7 +21,7 @@
   },
   "ordering": {
     "methods": "Online (Fireaway website and mobile app), by phone on 0161 526 4777, in person at the shop, or via Uber Eats, Deliveroo and Just Eat.",
-    "delivery_available": "Yes, including no-contact delivery, during all opening hours.",
+    "delivery_available": "Delivery, including no-contact delivery, is available during all opening hours.",
     "delivery_area": "Ashton-under-Lyne (OL6) and nearby Tameside postcodes. Enter your postcode on the Fireaway Ashton-under-Lyne store page to check.",
     "delivery_charge": "Varies by postcode distance; shown at checkout.",
     "minimum_order": "Varies by postcode distance; shown at checkout.",
@@ -34,8 +34,12 @@
     "how_to_book": "Table bookings are not taken. Walk-in diners are welcome, first come first served, with limited casual seating."
   },
   "menu_categories": [
-    "Signature Pizzas", "Build Your Own (unlimited toppings)",
-    "Sides", "Pasta", "Desserts", "Drinks"
+    "Signature Pizzas",
+    "Build Your Own (unlimited toppings)",
+    "Sides",
+    "Pasta",
+    "Desserts",
+    "Drinks"
   ],
   "menu_highlights": [
     "Cheesy Pizza (12 inch large): tomato base, mozzarella, parmesan and cheddar - £13.99",
@@ -65,10 +69,18 @@
   "refunds_and_complaints": "TODO: owner-approved policy",
   "social": "Fireaway Ashton-under-Lyne Instagram and Facebook page",
   "faqs": [
-    {"question": "Do you take table bookings?", "answer": "No, we do not take table bookings. Walk-in diners are welcome, first come first served."}
+    {
+      "question": "Do you take table bookings?",
+      "answer": "No, we do not take table bookings. Walk-in diners are welcome, first come first served."
+    }
   ],
   "escalation_topics": [
-    "allergies", "complaints", "refunds", "large orders", "catering", "anything not covered above"
+    "allergies",
+    "complaints",
+    "refunds",
+    "large orders",
+    "catering",
+    "anything not covered above"
   ],
   "verify_with_owner": [
     "dietary.halal: '100% halal certified' was supplied; confirm the exact claim and certification",

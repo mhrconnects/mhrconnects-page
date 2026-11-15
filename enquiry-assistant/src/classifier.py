@@ -30,18 +30,26 @@ RULES = {
     ],
     "order": [
         r"\border\b", r"\bi.d like\b", r"\bi would like\b", r"\bi want\b",
-        r"\bcan i (get|have)\b", r"\bcould i (get|have)\b",
-        r"\bpizzas?\b", r"\bmargherita\b", r"\bpasta\b", r"\bcollection\b",
+        r"\bcan i (get|have)\b(?! (the|a|your) menu)",
+        r"\bcould i (get|have)\b(?! (the|a|your) menu)",
         r"\bdeliver me\b",
     ],
     "faq": [
         r"\bopen\w*", r"\bclos\w+", r"\bhours?\b", r"\bwhat time\b",
         r"\bdeliver\w*", r"\bmenu\b", r"\bprice\w*", r"\bhow much\b",
-        r"\bhalal\b", r"\bvegetarian\b", r"\bvegan\b", r"\bpay\w*",
+        r"\bhalal\b", r"\bvegetarian\b", r"\bveggie\b", r"\bvegan\b", r"\bpay\w*",
         r"\bcard\b", r"\bcash\b", r"\bphone\b", r"\baddress\b",
-        r"\bwhere are you\b", r"\bminimum\b",
+        r"\bwhere are you\b", r"\bminimum\b", r"\bdeals?\b", r"\boffers?\b",
+        r"\bspecials?\b", r"\bemail\b", r"\bhow long\b", r"\bcontactless\b",
     ],
 }
+
+# Menu words only suggest an order when nothing else matched. This stops
+# "Do you do vegan pizzas?" (a question) being treated as an order.
+WEAK_ORDER = [
+    re.compile(p) for p in
+    (r"\bpizzas?\b", r"\bmargherita\b", r"\bpasta\b", r"\bcollection\b")
+]
 
 # Categories that must always be handled by a person.
 HUMAN_CATEGORIES = {"allergy", "complaint", "unknown"}
@@ -74,6 +82,9 @@ def classify(message):
             hits[category] = found
 
     if not hits:
+        weak = [p.pattern for p in WEAK_ORDER if p.search(text)]
+        if weak:
+            return Classification("order", weak, needs_human=False)
         return Classification("unknown", [], needs_human=True)
 
     # First category in PRIORITY order that matched wins.

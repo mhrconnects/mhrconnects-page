@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fire Away Ashton - Enquiry Assistant Demo</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#f3f0ec;color:#222}
+.app{max-width:560px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#fff}
+header{background:#c8102e;color:#fff;padding:12px 16px}
+header strong{font-size:1.05rem}header span{display:block;font-size:.78rem;opacity:.9}
+.banner{background:#fff4d6;color:#6b4e00;font-size:.78rem;padding:6px 12px;text-align:center}
+nav{display:flex;border-bottom:1px solid #ddd;background:#fff;position:sticky;top:0;z-index:2}
+nav button{flex:1;padding:12px 4px;border:0;background:none;font-size:.92rem;color:#555;border-bottom:3px solid transparent}
+nav button.on{color:#c8102e;font-weight:700;border-bottom-color:#c8102e}
+.badge{background:#c8102e;color:#fff;border-radius:10px;font-size:.7rem;padding:1px 7px;margin-left:4px}
+section{display:none;flex:1;flex-direction:column}section.on{display:flex}
+.log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:320px;max-height:60vh}
+.bubble{max-width:86%;padding:10px 12px;border-radius:14px;white-space:pre-wrap;line-height:1.35;word-wrap:break-word}
+.bot{background:#eee;align-self:flex-start;border-bottom-left-radius:4px}
+.me{background:#c8102e;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px}
+.chips button{border:1px solid #c8102e;background:#fff;color:#c8102e;border-radius:16px;padding:5px 10px;font-size:.78rem}
+form{display:flex;gap:8px;padding:10px;border-top:1px solid #ddd}
+input{flex:1;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:1rem;min-width:0}
+form button{padding:0 18px;border:0;border-radius:10px;background:#c8102e;color:#fff;font-size:1rem}
+.pad{padding:12px;display:flex;flex-direction:column;gap:10px}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pills button{border:1px solid #c8102e;background:#fff;color:#c8102e;border-radius:16px;padding:6px 12px;font-size:.85rem}
+.pills button.on{background:#c8102e;color:#fff}
+.card{background:#fff;border:1px solid #e5e0da;border-left:5px solid #c8102e;border-radius:10px;padding:10px 12px;line-height:1.4}
+.card.callback{border-left-color:#e08a00}.card.done{opacity:.5;border-left-color:#999}
+.top{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:.76rem;color:#666}
+.tag{font-weight:700;font-size:.7rem;padding:2px 8px;border-radius:10px;background:#eee;color:#333}
+.tag.human{background:#c8102e;color:#fff}.tag.wa{background:#25d366;color:#053}.tag.em{background:#d9e6ff;color:#123}
+.name{font-weight:700;margin-top:3px}.row{margin-top:2px;white-space:pre-wrap;word-wrap:break-word;font-size:.92rem}
+.note{color:#a35a00;font-size:.82rem}
+.card button{margin-top:8px;border:0;background:#2a7d3f;color:#fff;border-radius:8px;padding:7px 12px}
+.empty{text-align:center;color:#777;padding:28px}
+.alert pre{margin:6px 0 0;white-space:pre-wrap;font:inherit;font-size:.88rem}
+.foot{padding:8px 12px 14px;text-align:center;font-size:.72rem;color:#777}
+.foot button{border:0;background:none;color:#c8102e;text-decoration:underline;font-size:.72rem}
+</style>
+</head>
+<body>
+<div class="app">
+  <header><strong>Fire Away Ashton</strong><span>AI enquiry assistant - interactive demo</span></header>
+  <div class="banner">Runs entirely in your browser. Nothing is stored or sent. Please use fake details.</div>
+  <nav id="tabs">
+    <button data-tab="chat" class="on">1. Customer chat</button>
+    <button data-tab="dash">2. Staff dashboard<span class="badge" id="b-dash">0</span></button>
+    <button data-tab="alerts">3. Alerts<span class="badge" id="b-alerts">0</span></button>
+  </nav>
+
+  <section id="chat" class="on">
+    <div class="log" id="log" aria-live="polite"></div>
+    <div class="chips" id="chips"></div>
+    <form id="form" autocomplete="off">
+      <input id="msg" type="text" maxlength="500" placeholder="Type as a customer..." aria-label="Customer message" required>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <section id="dash">
+    <div class="pad">
+      <div class="pills" id="pills">
+        <button data-view="open" class="on">To do</button><button data-view="human">Needs a person</button>
+        <button data-view="orders">Orders</button><button data-view="all">All</button>
+      </div>
+      <div id="list"></div>
+    </div>
+  </section>
+
+  <section id="alerts">
+    <div class="pad"><div id="alertlist"></div></div>
+  </section>
+
+  <div class="foot">Business facts are demo placeholders pending owner confirmation. <button id="reset">Reset demo</button></div>
+</div>
+
+<script>
+const DATA = /*DATA*/;
+/*ENGINE*/
+const E = createEngine(DATA);
+
+// ---------- helpers (textContent only: nothing typed is ever treated as HTML) ----------
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+const $ = (id) => document.getElementById(id);
+
+// ---------- in-memory "database" and alerts ----------
+let db, alerts, nextId, conv, view;
+function addEnquiry(e, notify) {
+  e.id = nextId++; e.handled = false; db.unshift(e);
+  if (notify) {
+    const [subject, body] = E.formatMessage(e);
+    E.route(e).forEach((ch) => alerts.unshift({ channel: ch, subject, body, time: new Date() }));
+  }
+}
+function reset() {
+  db = []; alerts = []; nextId = 1; conv = new E.Conversation(); view = "open";
+  DATA.samples.forEach((s, i) => {
+    const e = E.newEnquiry(s.kind, s.category, s.message, s);
+    e.created_at = new Date(Date.now() - (DATA.samples.length - i) * 12 * 60000).toISOString().slice(0, 19) + "+00:00";
+    addEnquiry(e, false);
+  });
+  $("log").replaceChildren();
+  say("Hi! I'm the Fire Away Ashton assistant. Ask about opening hours, delivery or deals, or tell me what you'd like to order.", "bot");
+  render();
+}
+
+// ---------- chat ----------
+function say(text, who) { const d = el("div", "bubble " + who, text); $("log").append(d); $("log").scrollTop = $("log").scrollHeight; }
+function send(text) {
+  text = text.trim(); if (!text) return;
+  say(text, "me");
+  const t = conv.handle(text);
+  setTimeout(() => { say(t.reply, "bot"); }, 250);
+  if (t.done && t.enquiry) { addEnquiry(t.enquiry, true); render(); flashTabs(); }
+}
+$("form").addEventListener("submit", (ev) => { ev.preventDefault(); send($("msg").value); $("msg").value = ""; });
+["Are you open on Sunday?", "Is your food halal?", "Any deals?", "I'd like two cheesy pizzas",
+ "Is the base gluten free?", "My pizza arrived cold", "Can I book a table for 4?", "Do you deliver to Hyde?"]
+  .forEach((t) => { const b = el("button", "", t); b.type = "button"; b.onclick = () => send(t); $("chips").append(b); });
+
+// ---------- dashboard ----------
+const VIEWS = { all: () => true, open: (e) => !e.handled, human: (e) => e.needs_human && !e.handled, orders: (e) => e.kind === "order" };
+function card(e) {
+  const c = el("div", "card " + e.kind + (e.handled ? " done" : ""));
+  const top = el("div", "top");
+  top.append(el("span", "tag", e.kind === "order" ? "ORDER" : "CALLBACK: " + e.category));
+  if (e.needs_human) top.append(el("span", "tag human", "NEEDS A PERSON"));
+  if (e.status === "incomplete") top.append(el("span", "tag", "INCOMPLETE"));
+  top.append(el("span", "", new Date(e.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })));
+  c.append(top, el("div", "name", e.name || "(no name)"));
+  if (e.phone) c.append(el("div", "row", e.phone));
+  if (e.items) c.append(el("div", "row", "Order: " + e.items));
+  if (e.fulfilment) c.append(el("div", "row", e.fulfilment[0].toUpperCase() + e.fulfilment.slice(1)));
+  if (e.address) c.append(el("div", "row", "Address: " + e.address));
+  c.append(el("div", "row", "Customer said: " + e.message));
+  e.notes.forEach((n) => c.append(el("div", "note", "Note: " + n)));
+  if (!e.handled) { const b = el("button", "", "Mark handled"); b.onclick = () => { e.handled = true; render(); }; c.append(b); }
+  return c;
+}
+$("pills").addEventListener("click", (ev) => {
+  if (!ev.target.dataset.view) return; view = ev.target.dataset.view;
+  $("pills").querySelectorAll("button").forEach((b) => b.classList.toggle("on", b === ev.target)); render();
+});
+
+// ---------- alerts ----------
+function alertCard(a) {
+  const c = el("div", "card alert " + (a.channel === "email" ? "callback" : ""));
+  const top = el("div", "top");
+  top.append(el("span", "tag " + (a.channel === "whatsapp" ? "wa" : "em"), a.channel === "whatsapp" ? "WhatsApp to owner" : "Email to owner"));
+  top.append(el("span", "", a.time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })));
+  c.append(top, el("div", "name", a.subject), el("pre", "", a.body));
+  return c;
+}
+
+function render() {
+  const rows = db.filter(VIEWS[view]);
+  $("list").replaceChildren(...(rows.length ? rows.map(card) : [el("div", "empty", "Nothing here.")]));
+  $("alertlist").replaceChildren(...(alerts.length ? alerts.map(alertCard)
+    : [el("div", "empty", "No alerts yet. Finish an order or complaint in the chat and the owner's alert appears here.")]));
+  $("b-dash").textContent = db.filter((e) => !e.handled).length;
+  $("b-alerts").textContent = alerts.length;
+}
+function flashTabs() { ["b-dash", "b-alerts"].forEach((id) => { $(id).style.background = "#2a7d3f"; setTimeout(() => ($(id).style.background = ""), 1500); }); }
+
+// ---------- tabs ----------
+$("tabs").addEventListener("click", (ev) => {
+  const t = ev.target.closest("button"); if (!t || !t.dataset.tab) return;
+  document.querySelectorAll("nav button").forEach((b) => b.classList.toggle("on", b === t));
+  document.querySelectorAll("section").forEach((s) => s.classList.toggle("on", s.id === t.dataset.tab));
+});
+$("reset").onclick = reset;
+reset();
+</script>
+</body>
+</html>

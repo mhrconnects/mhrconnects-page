@@ -4,3 +4,4 @@ __pycache__/
 .env
 enquiry-assistant/data/outbox/
 enquiry-assistant/data/demo_outbox/
+enquiry-assistant/dist/

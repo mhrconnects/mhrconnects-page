@@ -35,6 +35,12 @@ CREATE TABLE IF NOT EXISTS enquiries (
     handled_at  TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_enquiries_created ON enquiries(created_at);
+CREATE TABLE IF NOT EXISTS notifications (
+    enquiry_id INTEGER NOT NULL,
+    channel    TEXT NOT NULL,
+    sent_at    TEXT NOT NULL,
+    PRIMARY KEY (enquiry_id, channel)
+);
 """
 
 
@@ -117,6 +123,19 @@ def list_unnotified(conn):
     rows = conn.execute("SELECT * FROM enquiries WHERE notified_at IS NULL "
                         "ORDER BY id").fetchall()
     return [_to_dict(r) for r in rows]
+
+
+def channel_sent(conn, enquiry_id, channel):
+    row = conn.execute("SELECT 1 FROM notifications WHERE enquiry_id = ? "
+                       "AND channel = ?", (enquiry_id, channel)).fetchone()
+    return row is not None
+
+
+def record_notification(conn, enquiry_id, channel):
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    conn.execute("INSERT OR IGNORE INTO notifications VALUES (?,?,?)",
+                 (enquiry_id, channel, now))
+    conn.commit()
 
 
 def mark_notified(conn, enquiry_id):

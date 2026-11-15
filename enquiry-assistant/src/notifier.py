@@ -12,7 +12,8 @@ cost. A real WhatsApp/email sender only needs a send(subject, body) method.
 from datetime import datetime, timezone
 from pathlib import Path
 
-from src.database import list_unnotified, mark_notified
+from src.database import (channel_sent, list_unnotified, mark_notified,
+                          record_notification)
 
 DEFAULT_OUTBOX = Path(__file__).resolve().parent.parent / "data" / "outbox"
 
@@ -62,15 +63,18 @@ class OutboxChannel:
 
 
 def default_channels(folder=DEFAULT_OUTBOX):
-    return {"whatsapp": OutboxChannel("whatsapp", folder),
+    """Real WhatsApp if configured in .env, otherwise the demo outbox."""
+    from src.whatsapp import whatsapp_from_env
+    return {"whatsapp": whatsapp_from_env() or OutboxChannel("whatsapp", folder),
             "email": OutboxChannel("email", folder)}
 
 
 def notify_new(conn, channels=None):
     """Send every not-yet-notified enquiry. Returns {'sent': n, 'failed': n}.
 
-    An enquiry is only marked notified if ALL its channels succeed, so a
-    failure is retried next time instead of being silently lost.
+    Delivery is recorded per channel, so if WhatsApp fails but email works,
+    only WhatsApp is retried next time (no duplicate emails). An enquiry is
+    marked notified once ALL its channels have succeeded.
     """
     channels = channels or default_channels()
     sent = failed = 0
@@ -78,8 +82,11 @@ def notify_new(conn, channels=None):
         subject, body = format_message(e)
         ok = True
         for name in route(e):
+            if channel_sent(conn, e["id"], name):
+                continue
             try:
                 channels[name].send(subject, body)
+                record_notification(conn, e["id"], name)
             except Exception:
                 ok = False
         if ok:

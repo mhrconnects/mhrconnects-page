@@ -1,0 +1,49 @@
+{
+  "_readme": "Business-approved facts. The assistant may ONLY answer from this file. Any value starting with 'TODO:' has not been confirmed by the owner yet.",
+  "business": {
+    "name": "Fire Away Ashton",
+    "location": "Ashton-under-Lyne, Greater Manchester",
+    "phone": "TODO: real phone number",
+    "email": "TODO: real email address",
+    "address": "TODO: real street address"
+  },
+  "opening_hours": {
+    "monday": "TODO: e.g. 16:00-22:00 or closed",
+    "tuesday": "TODO",
+    "wednesday": "TODO",
+    "thursday": "TODO",
+    "friday": "TODO",
+    "saturday": "TODO",
+    "sunday": "TODO"
+  },
+  "ordering": {
+    "methods": "TODO: phone / in person / app (which ones?)",
+    "delivery_available": "TODO: yes or no",
+    "delivery_area": "TODO: which areas/postcodes",
+    "delivery_charge": "TODO",
+    "minimum_order": "TODO",
+    "collection_time": "TODO: typical wait in minutes"
+  },
+  "bookings": {
+    "takes_table_bookings": "TODO: yes or no",
+    "max_party_size": "TODO",
+    "how_to_book": "TODO"
+  },
+  "menu_highlights": [
+    "TODO: item and price",
+    "TODO: item and price"
+  ],
+  "allergens": {
+    "policy": "TODO: owner-approved allergen wording",
+    "always_escalate": true
+  },
+  "payments": "TODO: cash / card / contactless",
+  "refunds_and_complaints": "TODO: owner-approved policy",
+  "faqs": [
+    {"question": "Do you do halal food?", "answer": "TODO: confirm with owner"},
+    {"question": "Do you have vegetarian options?", "answer": "TODO: confirm with owner"}
+  ],
+  "escalation_topics": [
+    "allergies", "complaints", "refunds", "large orders", "catering", "anything not covered above"
+  ]
+}

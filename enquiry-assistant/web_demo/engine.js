@@ -11,7 +11,7 @@ function createEngine(D) {
   const DAYPAT = {};
   for (const [d, p] of Object.entries(D.day_patterns)) DAYPAT[d] = rx(p);
   const MENU_WORDS = rx(D.menu_words), CANCEL = rx(D.cancel), POSTCODE = rx(D.postcode);
-  const NAME_PREFIX = rx(D.name_prefix, "i");
+  const NAME_PREFIX = rx(D.name_prefix, "i"), QUESTION = rx(D.question);
   const HUMAN = new Set(D.human_categories);
   const kb = D.kb, DAYS = D.days, MAX_INPUT = D.max_input;
 
@@ -239,6 +239,9 @@ function createEngine(D) {
     }
     _collect(text) {
       if (CANCEL.test(text.toLowerCase())) { this._reset(); return { reply: "No problem, I've cancelled that. Message us any time.", done: false, enquiry: null }; }
+      const side = this._sideTopic(text);
+      if (side) return this._handleSide(side, text);
+
       const e = this.enquiry, f = this.field;
       const [value, error] = VALIDATORS[f](text);
       if (value === null) {
@@ -256,6 +259,24 @@ function createEngine(D) {
       }
       if (this._nextField()) return this._askNext(extra.trim());
       return this._finishComplete(extra);
+    }
+    _sideTopic(text) {
+      const cat = classify(text).category;
+      const asking = QUESTION.test(text.toLowerCase().trim());
+      if (cat === "complaint" || cat === "human") return cat;
+      if (cat === "allergy" && (asking || this.field !== "items")) return cat;
+      if ((cat === "faq" || cat === "booking") && asking) return cat;
+      if (cat === "chitchat") return cat;
+      return null;
+    }
+    _handleSide(cat, text) {
+      const e = this.enquiry, r = respond(text);
+      if (D.side_notes[cat]) {
+        e.needs_human = true;
+        if (!e.notes.includes(D.side_notes[cat])) e.notes.push(D.side_notes[cat]);
+      }
+      const what = e.kind === "order" ? "order" : "enquiry";
+      return { reply: `${r.reply} Back to your ${what}: ${QUESTIONS[this.field]}`, done: false, enquiry: null };
     }
     _finishComplete(extra) {
       const e = this.enquiry; e.status = "complete";

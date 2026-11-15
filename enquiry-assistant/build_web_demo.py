@@ -31,6 +31,8 @@ def build_data():
         "postcode": collector.POSTCODE.pattern,
         "name_prefix": collector.NAME_PREFIX.pattern,
         "max_input": collector.MAX_INPUT,
+        "question": collector.QUESTION.pattern,
+        "side_notes": collector.SIDE_NOTES,
         "days": DAYS,
         "kb": load_knowledge(),
         "samples": SAMPLES,

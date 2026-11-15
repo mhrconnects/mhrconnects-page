@@ -28,6 +28,14 @@ CHATS = [
     ["what's your email", "Tom", "07123456789"],
     ["hi", "thanks", "bye"],
     ["I'd like a pizza", "delivery", "12 High Street", "12 High Street OL6 1AA", "O'Brien", "07123456789"],
+    # side questions in the middle of an order
+    ["I want 2 pizzas", "is it gluten free?", "delivery", "5 High St OL6 1AA", "Sam", "07123456789"],
+    ["I want to order", "do you deliver?", "two pizzas", "what time do you close?", "collection",
+     "thanks", "Will Smith", "my pizza last time was cold", "07123456789"],
+    ["I want to order", "a pizza", "collection", "I'm allergic to nuts", "Sam", "07123456789"],
+    ["my pizza arrived cold", "is it halal?", "Bob", "can I speak to the manager", "0161 526 4777"],
+    ["I want a margherita", "can I book a table?", "delivery", "do you take cards", "1 High St OL6 1AA",
+     "hi", "Ann", "07123456789"],
 ]
 PHONES = ["0161 526 4777", "07123-456-789", "+44 7123 456789", "+44 (0)7123 456789",
           "0044 7123 456789", "12345", "abc", "", "07123 45678", "07123456789012", "0800"]

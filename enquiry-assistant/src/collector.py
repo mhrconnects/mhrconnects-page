@@ -24,6 +24,15 @@ MENU_WORDS = re.compile(
     r"\b(pizzas?|margherita|pepperoni|pasta|cheesy|amalfi|veggie supreme|"
     r"vegan supreme|meal deal|double deal|date night|full house|wings|"
     r"dough balls|garlic bread|chips|dessert|drink)\b")
+# Looks like a question: has a "?" or starts with a question word.
+QUESTION = re.compile(
+    r"\?|^(?:do|does|did|is|are|am|can|could|will|would|what|how|when|where|"
+    r"which|who|why|have|has|any)\b")
+SIDE_NOTES = {
+    "allergy": "Customer asked about allergens/dietary needs during the chat: staff must confirm.",
+    "complaint": "Customer raised a complaint during the chat: staff to follow up.",
+    "human": "Customer asked to speak to a person during the chat.",
+}
 POSTCODE = re.compile(r"\b([A-Za-z]{1,2}\d[A-Za-z\d]?)\s*(\d[A-Za-z]{2})\b")
 NAME_PREFIX = re.compile(
     r"^(my name is|name is|it'?s|its|i am|i'm|this is|call me)\s+", re.I)
@@ -201,6 +210,10 @@ class Conversation:
             self._reset()
             return Turn("No problem, I've cancelled that. Message us any time.")
 
+        side = self._side_topic(text)
+        if side:
+            return self._handle_side(side, text)
+
         e, fld = self.enquiry, self.field
         value, error = VALIDATORS[fld](text)
 
@@ -223,6 +236,33 @@ class Conversation:
         if self._next_field():
             return self._ask_next(extra.strip())
         return self._finish_complete(extra)
+
+    # ---- side questions in the middle of a chat ----
+    def _side_topic(self, text):
+        """If the customer asked something else instead of answering, say what."""
+        cat = classify(text).category
+        asking = bool(QUESTION.search(text.lower().strip()))
+        if cat in ("complaint", "human"):
+            return cat
+        if cat == "allergy" and (asking or self.field != "items"):
+            return cat   # (an allergy written inside their order is kept as the order)
+        if cat in ("faq", "booking") and asking:
+            return cat
+        if cat == "chitchat":
+            return cat
+        return None
+
+    def _handle_side(self, cat, text):
+        """Answer the side question, then go back to the question we were asking."""
+        e = self.enquiry
+        r = respond(text, self.kb)
+        if cat in SIDE_NOTES:
+            e.needs_human = True
+            if SIDE_NOTES[cat] not in e.notes:
+                e.notes.append(SIDE_NOTES[cat])
+        what = "order" if e.kind == "order" else "enquiry"
+        return Turn(f"{r.reply} Back to your {what}: {QUESTIONS[self.field]}",
+                    False, None, r)
 
     # ---- finishing ----
     def _finish_complete(self, extra=""):

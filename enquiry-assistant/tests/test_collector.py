@@ -152,5 +152,72 @@ class TestSafetyAndEdgeCases(unittest.TestCase):
             c._reset()
 
 
+class TestSideQuestions(unittest.TestCase):
+    """Customers ask other things in the middle of an order."""
+
+    def test_gluten_question_mid_order_is_answered_not_read_as_a_name(self):
+        c, turns = run("I want 2 pizzas", "is it gluten free?")
+        reply = turns[1].reply
+        self.assertNotIn("didn't catch", reply)
+        self.assertIn("team member", reply)
+        self.assertIn("collection or delivery", reply)      # goes back to the question
+        self.assertIsNotNone(c.enquiry)                      # order still in progress
+
+    def test_order_continues_and_is_flagged_for_a_person(self):
+        _, turns = run("I want 2 pizzas", "is it gluten free?", "delivery",
+                       "5 High St OL6 1AA", "Sam", "07123456789")
+        e = turns[-1].enquiry
+        self.assertEqual((e.status, e.fulfilment, e.name), ("complete", "delivery", "Sam"))
+        self.assertTrue(e.needs_human)
+        self.assertTrue(any("allergens" in n for n in e.notes))
+
+    def test_faq_mid_order_answers_then_repeats_question(self):
+        _, turns = run("I want to order", "two pizzas", "what time do you close?")
+        self.assertIn("4:00 PM", turns[2].reply)
+        self.assertIn("collection or delivery", turns[2].reply)
+
+    def test_do_you_deliver_at_the_delivery_question(self):
+        _, turns = run("I want to order", "two pizzas", "do you deliver?", "delivery")
+        self.assertIn("postcode", turns[2].reply)
+        self.assertIn("delivery address", turns[3].reply)
+
+    def test_chitchat_mid_order_is_not_taken_as_an_answer(self):
+        c, turns = run("I want to order", "thanks")
+        self.assertIn("What would you like to order", turns[1].reply)
+        self.assertEqual(c.enquiry.items, "")
+
+    def test_complaint_mid_order_flags_human(self):
+        _, turns = run("I want to order", "two pizzas", "collection", "Sam",
+                       "my last pizza was cold", "07123456789")
+        self.assertTrue(turns[-1].enquiry.needs_human)
+        self.assertTrue(any("complaint" in n for n in turns[-1].enquiry.notes))
+
+    def test_names_starting_with_a_question_word_still_work(self):
+        _, turns = run("I want to order", "two pizzas", "collection",
+                       "Will Smith", "07123456789")
+        self.assertEqual(turns[-1].enquiry.name, "Will Smith")
+
+    def test_answers_that_look_like_faq_words_are_still_answers(self):
+        _, turns = run("I want to order", "two pizzas", "delivery")
+        self.assertIn("delivery address", turns[2].reply)
+
+    def test_allergy_written_inside_the_order_is_kept_as_the_order(self):
+        _, turns = run("I want to order", "a pizza, I have a nut allergy",
+                       "collection", "Sam", "07123456789")
+        e = turns[-1].enquiry
+        self.assertIn("nut allergy", e.items)
+        self.assertTrue(e.needs_human)
+
+    def test_side_question_does_not_use_up_retry_attempts(self):
+        _, turns = run("I want to order", "two pizzas", "collection", "Sam",
+                       "what time do you close?", "is it halal?", "abc", "07123456789")
+        self.assertEqual(turns[-1].enquiry.status, "complete")
+
+    def test_callback_flow_also_handles_side_questions(self):
+        _, turns = run("my pizza arrived cold", "is it halal?", "Bob", "07700900123")
+        self.assertIn("Back to your enquiry", turns[1].reply)
+        self.assertEqual(turns[-1].enquiry.name, "Bob")
+
+
 if __name__ == "__main__":
     unittest.main()

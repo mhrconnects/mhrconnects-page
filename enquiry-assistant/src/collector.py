@@ -263,8 +263,11 @@ class Conversation:
 if __name__ == "__main__":
     from dataclasses import asdict
     import json
+    from src.database import connect, save_enquiry, DEFAULT_DB
+    db = connect()
     conv = Conversation()
     print("Fire Away Ashton assistant (DEMO: use fake details). Blank line to quit.")
+    print(f"Finished enquiries are saved to {DEFAULT_DB}")
     while True:
         msg = input("\nCustomer> ")
         if not msg:
@@ -272,5 +275,6 @@ if __name__ == "__main__":
         t = conv.handle(msg)
         print(f"Assistant> {t.reply}")
         if t.done:
-            print("\n[ENQUIRY RECORD]")
+            row_id = save_enquiry(db, t.enquiry)
+            print(f"\n[ENQUIRY SAVED as #{row_id}]")
             print(json.dumps(asdict(t.enquiry), indent=2))

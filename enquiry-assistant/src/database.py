@@ -45,6 +45,10 @@ def connect(path=DEFAULT_DB):
     conn = sqlite3.connect(str(path))
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)
+    cols = [r["name"] for r in conn.execute("PRAGMA table_info(enquiries)")]
+    if "notified_at" not in cols:  # upgrade older databases
+        conn.execute("ALTER TABLE enquiries ADD COLUMN notified_at TEXT")
+        conn.commit()
     return conn
 
 
@@ -107,6 +111,19 @@ def mark_handled(conn, enquiry_id):
         (now, enquiry_id))
     conn.commit()
     return cur.rowcount == 1
+
+
+def list_unnotified(conn):
+    rows = conn.execute("SELECT * FROM enquiries WHERE notified_at IS NULL "
+                        "ORDER BY id").fetchall()
+    return [_to_dict(r) for r in rows]
+
+
+def mark_notified(conn, enquiry_id):
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    conn.execute("UPDATE enquiries SET notified_at = ? WHERE id = ?",
+                 (now, enquiry_id))
+    conn.commit()
 
 
 def delete_older_than(conn, days=DEFAULT_RETENTION_DAYS, now=None):

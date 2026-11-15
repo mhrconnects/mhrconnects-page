@@ -264,6 +264,7 @@ if __name__ == "__main__":
     from dataclasses import asdict
     import json
     from src.database import connect, save_enquiry, DEFAULT_DB
+    from src.notifier import notify_new
     db = connect()
     conv = Conversation()
     print("Fire Away Ashton assistant (DEMO: use fake details). Blank line to quit.")
@@ -276,5 +277,5 @@ if __name__ == "__main__":
         print(f"Assistant> {t.reply}")
         if t.done:
             row_id = save_enquiry(db, t.enquiry)
-            print(f"\n[ENQUIRY SAVED as #{row_id}]")
+            print(f"\n[ENQUIRY SAVED as #{row_id}] notifications: {notify_new(db)}")
             print(json.dumps(asdict(t.enquiry), indent=2))

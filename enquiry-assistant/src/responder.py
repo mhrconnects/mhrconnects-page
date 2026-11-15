@@ -22,14 +22,14 @@ TOPICS = [
     ("halal", [r"\bhalal\b"]),
     ("vegan", [r"\bvegan\b"]),
     ("vegetarian", [r"\bvegetarian\b", r"\bveggie\b"]),
-    ("deals", [r"\bdeals?\b", r"\boffers?\b", r"\bspecials?\b", r"\bdiscount\w*"]),
-    ("payment", [r"\bpay\w*", r"\bcard\b", r"\bcash\b", r"\bapple pay\b",
-                 r"\bgoogle pay\b", r"\bcontactless\b"]),
+    ("deals", [r"\bdeals?\b", r"\boffers?\b", r"\bspecials?\b"]),
+    ("payment", [r"\bpay\w*", r"\bcards?\b", r"\bcash\b", r"\bapple pay\b",
+                 r"\bgoogle pay\b", r"\bcontactless\b", r"\b(visa|mastercard|amex|debit|credit)\b"]),
     ("collection", [r"\bcollect\w*", r"\bpick.?up\b"]),
     ("delivery", [r"\bdeliver\w*", r"\bminimum\b"]),
     ("hours", [r"\bopen\w*", r"\bclos\w+", r"\bhours?\b", r"\bwhat time\b"]),
     ("menu", [r"\bmenu\b", r"\bprice\w*", r"\bhow much\b", r"\bcost\w*"]),
-    ("contact", [r"\bphone\b", r"\bnumber\b", r"\baddress\b", r"\bwhere\b",
+    ("contact", [r"\bphone\b", r"\bwhere ?abouts\b", r"\bpost ?code\b", r"\bnumber\b", r"\baddress\b", r"\bwhere\b",
                  r"\blocation\b", r"\bemail\b"]),
 ]
 _TOPICS = [(t, [re.compile(p) for p in ps]) for t, ps in TOPICS]
@@ -169,6 +169,18 @@ def respond(message, kb=None):
     text = (message or "").lower()
     phone = kb["business"]["phone"]
 
+    if c.category == "chitchat":
+        if re.search(r"\b(thank|thx|cheers|ta)\b", text):
+            reply = "You're welcome! Is there anything else I can help with?"
+        elif re.search(r"\b(bye|goodbye|see you|cya)\b", text):
+            reply = "Thanks for getting in touch. Bye for now!"
+        elif re.search(r"\b(ok|okay|k|great|perfect|lovely|nice one)\b", text):
+            reply = "Great! Is there anything else I can help with?"
+        else:
+            reply = ("Hi! How can I help? You can ask about opening hours, "
+                     "delivery or deals, or tell me what you'd like to order.")
+        return Response("chitchat", reply, False, "chitchat", c.matched)
+
     if c.category == "allergy":
         policy = kb["allergens"]["policy"]
         if _ok(policy):
@@ -212,7 +224,7 @@ def respond(message, kb=None):
             return Response("faq", answer, False, topic, c.matched)
         return Response("faq", _handoff(kb), True, topic or "", c.matched)
 
-    return Response("unknown", _handoff(kb), True, "", c.matched)
+    return Response(c.category, _handoff(kb), True, "", c.matched)
 
 
 if __name__ == "__main__":

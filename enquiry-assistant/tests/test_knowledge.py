@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from src.knowledge import (load_knowledge, missing_sections,
-                           missing_days, find_todos)
+                           missing_days, find_todos, items_to_verify)
 
 
 class TestKnowledge(unittest.TestCase):
@@ -25,7 +25,27 @@ class TestKnowledge(unittest.TestCase):
         self.assertTrue(self.kb["allergens"]["always_escalate"])
 
     def test_find_todos_detects_placeholders(self):
-        self.assertIn("opening_hours.monday", find_todos(self.kb))
+        self.assertIn("allergens.policy", find_todos(self.kb))
+        self.assertEqual(find_todos({"a": {"b": "TODO: x"}}), ["a.b"])
+
+    def test_gluten_free_stays_unconfirmed(self):
+        # Safety rule: never state gluten-free until the owner confirms.
+        self.assertIn("dietary.gluten_free", find_todos(self.kb))
+
+    def test_real_details_present(self):
+        self.assertEqual(self.kb["business"]["phone"], "0161 526 4777")
+        self.assertIn("95 Penny Meadow", self.kb["business"]["address"])
+        self.assertEqual(self.kb["opening_hours"]["friday"], "4:00 PM - 2:00 AM")
+        self.assertEqual(self.kb["opening_hours"]["sunday"], "4:00 PM - 1:00 AM")
+        self.assertEqual(self.kb["bookings"]["takes_table_bookings"], "No")
+
+    def test_no_todo_in_opening_hours_or_phone(self):
+        todos = find_todos(self.kb)
+        self.assertFalse([t for t in todos if t.startswith("opening_hours")])
+        self.assertNotIn("business.phone", todos)
+
+    def test_verification_list_exists(self):
+        self.assertTrue(items_to_verify(self.kb))
 
     def test_find_todos_empty_when_confirmed(self):
         self.assertEqual(find_todos({"a": {"b": "08:00"}, "c": ["x"]}), [])

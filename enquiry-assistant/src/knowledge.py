@@ -48,10 +48,16 @@ def find_todos(data, _prefix=""):
     return found
 
 
+def items_to_verify(data):
+    """Return facts the owner still has to confirm before going live."""
+    return data.get("verify_with_owner", [])
+
+
 if __name__ == "__main__":
     kb = load_knowledge()
     todos = find_todos(kb)
     print(f"Loaded knowledge for: {kb['business']['name']}")
     print(f"Unconfirmed (TODO) fields: {len(todos)}")
+    print(f"Facts for owner to verify: {len(items_to_verify(kb))}")
     for t in todos:
         print("  -", t)

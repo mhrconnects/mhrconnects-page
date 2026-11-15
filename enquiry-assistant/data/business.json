@@ -1,49 +1,80 @@
 {
-  "_readme": "Business-approved facts. The assistant may ONLY answer from this file. Any value starting with 'TODO:' has not been confirmed by the owner yet.",
+  "_readme": "Business-approved facts. The assistant may ONLY answer from this file. Any value starting with 'TODO' has not been confirmed yet. Items in 'verify_with_owner' were supplied but must be confirmed by the owner before going live.",
   "business": {
     "name": "Fire Away Ashton",
+    "brand": "Fireaway Pizza",
     "location": "Ashton-under-Lyne, Greater Manchester",
-    "phone": "TODO: real phone number",
-    "email": "TODO: real email address",
-    "address": "TODO: real street address"
+    "phone": "0161 526 4777",
+    "email": "TODO: branch email address",
+    "address": "95 Penny Meadow, Ashton-under-Lyne, OL6 6EP",
+    "website": "https://www.fireaway.co.uk"
   },
   "opening_hours": {
-    "monday": "TODO: e.g. 16:00-22:00 or closed",
-    "tuesday": "TODO",
-    "wednesday": "TODO",
-    "thursday": "TODO",
-    "friday": "TODO",
-    "saturday": "TODO",
-    "sunday": "TODO"
+    "monday": "4:00 PM - 1:00 AM",
+    "tuesday": "4:00 PM - 1:00 AM",
+    "wednesday": "4:00 PM - 1:00 AM",
+    "thursday": "4:00 PM - 1:00 AM",
+    "friday": "4:00 PM - 2:00 AM",
+    "saturday": "4:00 PM - 2:00 AM",
+    "sunday": "4:00 PM - 1:00 AM",
+    "note": "Open seven days a week. Closing times are after midnight, i.e. the following morning."
   },
   "ordering": {
-    "methods": "TODO: phone / in person / app (which ones?)",
-    "delivery_available": "TODO: yes or no",
-    "delivery_area": "TODO: which areas/postcodes",
-    "delivery_charge": "TODO",
-    "minimum_order": "TODO",
-    "collection_time": "TODO: typical wait in minutes"
+    "methods": "Online (Fireaway website and mobile app), by phone on 0161 526 4777, in person at the shop, or via Uber Eats, Deliveroo and Just Eat.",
+    "delivery_available": "Yes, including no-contact delivery, during all opening hours.",
+    "delivery_area": "Ashton-under-Lyne (OL6) and nearby Tameside postcodes. Enter your postcode on the Fireaway Ashton-under-Lyne store page to check.",
+    "delivery_charge": "Varies by postcode distance; shown at checkout.",
+    "minimum_order": "Varies by postcode distance; shown at checkout.",
+    "collection_time": "Usually ready in 10 to 20 minutes.",
+    "delivery_time": "Usually 30 to 45 minutes, longer at busy evening times."
   },
   "bookings": {
-    "takes_table_bookings": "TODO: yes or no",
-    "max_party_size": "TODO",
-    "how_to_book": "TODO"
+    "takes_table_bookings": "No",
+    "max_party_size": "Not applicable",
+    "how_to_book": "Table bookings are not taken. Walk-in diners are welcome, first come first served, with limited casual seating."
   },
-  "menu_highlights": [
-    "TODO: item and price",
-    "TODO: item and price"
+  "menu_categories": [
+    "Signature Pizzas", "Build Your Own (unlimited toppings)",
+    "Sides", "Pasta", "Desserts", "Drinks"
   ],
+  "menu_highlights": [
+    "Cheesy Pizza (12 inch large): tomato base, mozzarella, parmesan and cheddar - £13.99",
+    "Amalfi Pizza (12 inch large): tomato base, mozzarella, black olives, parmesan and fresh basil - £14.99",
+    "Veggie Supreme Pizza (12 inch large): tomato base, mozzarella, onions, peppers, sweetcorn, mushrooms and black olives - £14.99",
+    "Vegan Supreme Pizza (12 inch large): tomato base, vegan cheese, peppers, red onions, mushrooms, sweetcorn and black olives - £15.99"
+  ],
+  "deals": [
+    "Collection special: any Classic Pizza for £7.99, collection orders only",
+    "Meal Deal 1 - £19.99: one 12 inch large pizza, one classic side and one 330ml soft drink",
+    "Double Deal - £25.99: any two 12 inch large pizzas",
+    "Meal Deal 2 - £31.99: two 12 inch large pizzas, one classic side and one 1.25L soft drink",
+    "Date Night - £34.99: two 12 inch large pizzas, one classic side, one dessert and one 1.25L soft drink",
+    "Full House Bundle - £47.99: three 12 inch large pizzas, two classic sides and one 1.25L soft drink"
+  ],
+  "dietary": {
+    "halal": "All meat toppings are halal.",
+    "vegetarian": "Vegetarian items are labelled on the menu, for example the Cheesy, Amalfi and Veggie Supreme pizzas.",
+    "vegan": "There is a vegan range using vegan cheese, for example the Vegan Supreme.",
+    "gluten_free": "TODO: owner to confirm gluten-free availability and wording. Do not state to customers until confirmed."
+  },
   "allergens": {
     "policy": "TODO: owner-approved allergen wording",
     "always_escalate": true
   },
-  "payments": "TODO: cash / card / contactless",
+  "payments": "Debit and credit cards, contactless, Apple Pay and Google Pay in store and online. Cash accepted for in-person counter orders and cash on delivery orders placed directly with the shop.",
   "refunds_and_complaints": "TODO: owner-approved policy",
+  "social": "Fireaway Ashton-under-Lyne Instagram and Facebook page",
   "faqs": [
-    {"question": "Do you do halal food?", "answer": "TODO: confirm with owner"},
-    {"question": "Do you have vegetarian options?", "answer": "TODO: confirm with owner"}
+    {"question": "Do you take table bookings?", "answer": "No, we do not take table bookings. Walk-in diners are welcome, first come first served."}
   ],
   "escalation_topics": [
     "allergies", "complaints", "refunds", "large orders", "catering", "anything not covered above"
+  ],
+  "verify_with_owner": [
+    "dietary.halal: '100% halal certified' was supplied; confirm the exact claim and certification",
+    "dietary.gluten_free: gluten-free bases were mentioned; confirm before stating",
+    "menu_highlights and deals: confirm current prices and offers",
+    "opening_hours: confirm current hours, including bank holidays",
+    "ordering.collection_time and delivery_time: confirm typical waits"
   ]
 }

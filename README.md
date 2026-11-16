@@ -22,6 +22,17 @@ The copy is placeholder text. Edit it in the overlay `<div>`s in `index.html`. S
 ## Re-rendering the MP4
 
 ```bash
-node tools/render-frames.js . /tmp/frames 30      # needs Playwright + Chromium
+node tools/render-frames.js index.html /tmp/frames 30 1920 1080   # needs Playwright + Chromium
 ffmpeg -framerate 30 -i /tmp/frames/f%05d.jpg -c:v libx264 -crf 20 -pix_fmt yuv420p video/mhr-connects-explainer.mp4
+```
+
+## Social 3D explainers (9:16)
+
+`explainers/how-a-lock-works/` is a 26-second vertical (1080×1920) 3D explainer in a TikTok, Reels and Shorts format, with an x-ray view of how a key opens a pin tumbler lock. It has a hook in the first 2 seconds, captions placed in the upper safe zone, and a follow card at the end.
+
+To re-render it:
+
+```bash
+node tools/render-frames.js explainers/how-a-lock-works/index.html /tmp/lock 30 1080 1920
+ffmpeg -framerate 30 -i /tmp/lock/f%05d.jpg -c:v libx264 -crf 19 -pix_fmt yuv420p explainers/how-a-lock-works/how-a-lock-works-9x16.mp4
 ```

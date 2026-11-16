@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MHR Connects — 3D Explainer</title>
+<style>
+  :root {
+    --bg: #050b1a;
+    --teal: #2dd4bf;
+    --amber: #fbbf24;
+    --text: #e6f1ff;
+    --muted: #8aa0bf;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: var(--bg); overflow: hidden;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif; color: var(--text); }
+  #stage { position: fixed; inset: 0; }
+  canvas { display: block; }
+
+  .overlay { position: fixed; inset: 0; pointer-events: none; }
+  .center { position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; padding: 0 6vw; }
+  .title { font-size: clamp(40px, 7.5vw, 128px); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .title span { color: var(--teal); }
+  .subtitle { margin-top: 1.2vw; font-size: clamp(14px, 1.6vw, 28px); color: var(--muted);
+    letter-spacing: 0.32em; text-transform: uppercase; font-weight: 500; }
+
+  .caption { position: absolute; left: 6vw; bottom: 11vh; max-width: 46vw; }
+  .caption .step { font-size: clamp(11px, 1vw, 17px); letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--teal); font-weight: 700; margin-bottom: 0.8vw; }
+  .caption .line { font-size: clamp(22px, 3.2vw, 56px); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; }
+  .caption .line em { font-style: normal; color: var(--amber); }
+  .caption .sub { margin-top: 0.9vw; font-size: clamp(13px, 1.25vw, 22px); color: var(--muted); line-height: 1.45; }
+
+  .cta { margin-top: 2.4vw; pointer-events: auto; display: inline-block; padding: 0.9vw 2.2vw;
+    border-radius: 999px; background: var(--teal); color: #03211d; font-weight: 700;
+    font-size: clamp(14px, 1.3vw, 24px); text-decoration: none; box-shadow: 0 0 40px rgba(45,212,191,0.45); }
+
+  .brand { position: absolute; top: 4vh; left: 6vw; font-weight: 800; letter-spacing: 0.08em;
+    font-size: clamp(12px, 1.1vw, 18px); }
+  .brand span { color: var(--teal); }
+  .progress { position: absolute; left: 0; bottom: 0; height: 4px; background: var(--teal); width: 0; }
+
+  .controls { position: fixed; right: 3vw; bottom: 4vh; display: flex; gap: 10px; z-index: 5; }
+  .controls button { background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px; padding: 8px 16px; font: inherit; font-size: 14px; cursor: pointer; }
+  .controls button:hover { background: rgba(255,255,255,0.16); }
+  body.render .controls { display: none; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+
+<div class="overlay">
+  <div class="brand" id="brand">MHR <span>CONNECTS</span></div>
+
+  <div class="center" id="titleCard">
+    <div class="title">MHR <span>Connects</span></div>
+    <div class="subtitle">Connect · Collaborate · Grow</div>
+  </div>
+
+  <div class="caption" id="cap1">
+    <div class="step">The problem</div>
+    <div class="line">People, ideas and opportunities are <em>scattered</em>.</div>
+    <div class="sub">Valuable connections get lost between inboxes, apps and spreadsheets.</div>
+  </div>
+
+  <div class="caption" id="cap2">
+    <div class="step">01 · Connect</div>
+    <div class="line">MHR Connects brings everyone into <em>one network</em>.</div>
+    <div class="sub">The right people find each other — automatically.</div>
+  </div>
+
+  <div class="caption" id="cap3">
+    <div class="step">02 · Collaborate</div>
+    <div class="line">Share, match and work together in <em>real time</em>.</div>
+    <div class="sub">Every link carries ideas, requests and updates instantly.</div>
+  </div>
+
+  <div class="caption" id="cap4">
+    <div class="step">03 · Grow</div>
+    <div class="line">Your network expands — and so does your <em>impact</em>.</div>
+    <div class="sub">Each new connection makes the whole network stronger.</div>
+  </div>
+
+  <div class="center" id="ctaCard">
+    <div class="title">MHR <span>Connects</span></div>
+    <div class="subtitle">Connect · Collaborate · Grow</div>
+    <a class="cta" href="#" id="ctaBtn">Get started</a>
+  </div>
+
+  <div class="progress" id="progress"></div>
+</div>
+
+<div class="controls">
+  <button id="playBtn">Pause</button>
+  <button id="replayBtn">Replay</button>
+</div>
+
+<script type="module">
+import * as THREE from './vendor/three.module.min.js';
+
+const DURATION = 36;            // seconds
+const RENDER_MODE = new URLSearchParams(location.search).has('render');
+if (RENDER_MODE) document.body.classList.add('render');
+
+// ---------- helpers ----------
+let seed = 1337;
+const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const smooth = (x) => { x = clamp(x); return x * x * (3 - 2 * x); };
+const ease = (x) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const range = (t, a, b) => clamp((t - a) / (b - a));
+// fade in over [a,a+f], hold, fade out over [b-f,b]
+const window_ = (t, a, b, f = 0.7) => Math.min(smooth(range(t, a, a + f)), 1 - smooth(range(t, b - f, b)));
+const lerpV = (out, a, b, k) => out.set(a.x + (b.x - a.x) * k, a.y + (b.y - a.y) * k, a.z + (b.z - a.z) * k);
+
+// ---------- renderer / scene ----------
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: RENDER_MODE });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050b1a);
+scene.fog = new THREE.FogExp2(0x050b1a, 0.022);
+
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 400);
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  if (paused || RENDER_MODE) renderAt(currentT);
+});
+
+scene.add(new THREE.AmbientLight(0x8899cc, 0.6));
+const key = new THREE.PointLight(0x2dd4bf, 120, 80); key.position.set(10, 12, 14); scene.add(key);
+const rim = new THREE.PointLight(0xfbbf24, 60, 80); rim.position.set(-14, -6, -10); scene.add(rim);
+
+// glow sprite texture
+function glowTexture() {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const g = c.getContext('2d');
+  const grd = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  grd.addColorStop(0, 'rgba(255,255,255,1)');
+  grd.addColorStop(0.25, 'rgba(255,255,255,0.55)');
+  grd.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = grd; g.fillRect(0, 0, 128, 128);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; return tex;
+}
+const GLOW = glowTexture();
+
+// ---------- starfield ----------
+{
+  const n = 1800, pos = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    const r = 80 + rand() * 120, th = rand() * Math.PI * 2, ph = Math.acos(2 * rand() - 1);
+    pos[i * 3] = r * Math.sin(ph) * Math.cos(th); pos[i * 3 + 1] = r * Math.cos(ph); pos[i * 3 + 2] = r * Math.sin(ph) * Math.sin(th);
+  }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0x6f86b3, size: 0.6, sizeAttenuation: true, fog: false, transparent: true, opacity: 0.7 })));
+}
+
+// ---------- network nodes ----------
+const CORE = 64, EXTRA = 90, N = CORE + EXTRA;
+const ringP = [], scatterP = [], sphereP = [], outerP = [], startExtra = [];
+for (let i = 0; i < CORE; i++) {
+  const a = (i / CORE) * Math.PI * 2;
+  ringP.push(new THREE.Vector3(Math.cos(a) * 9, Math.sin(a) * 9 * 0.56, (rand() - 0.5) * 1.5));
+  scatterP.push(new THREE.Vector3((rand() - 0.5) * 46, (rand() - 0.5) * 26, (rand() - 0.5) * 30));
+  // fibonacci sphere
+  const y = 1 - (i + 0.5) / CORE * 2, r = Math.sqrt(1 - y * y), th = i * 2.399963;
+  sphereP.push(new THREE.Vector3(Math.cos(th) * r * 6.2, y * 6.2, Math.sin(th) * r * 6.2));
+}
+for (let i = 0; i < EXTRA; i++) {
+  const th = rand() * Math.PI * 2, ph = Math.acos(2 * rand() - 1), r = 9.5 + rand() * 4.5;
+  const v = new THREE.Vector3(r * Math.sin(ph) * Math.cos(th), r * Math.cos(ph), r * Math.sin(ph) * Math.sin(th));
+  outerP.push(v);
+  startExtra.push(v.clone().multiplyScalar(4.5));
+}
+
+const nodeGeo = new THREE.IcosahedronGeometry(0.22, 2);
+const nodes = [], halos = [];
+const GREY = new THREE.Color(0x5b6b86), TEAL = new THREE.Color(0x2dd4bf), AMBER = new THREE.Color(0xfbbf24);
+for (let i = 0; i < N; i++) {
+  const extra = i >= CORE;
+  const m = new THREE.Mesh(nodeGeo, new THREE.MeshStandardMaterial({
+    color: extra ? AMBER : TEAL, emissive: extra ? AMBER : TEAL, emissiveIntensity: 0.7, roughness: 0.35, metalness: 0.2, transparent: true }));
+  m.scale.setScalar(extra ? 0.8 : 1 + rand() * 0.6);
+  scene.add(m); nodes.push(m);
+  const h = new THREE.Sprite(new THREE.SpriteMaterial({ map: GLOW, color: extra ? AMBER : TEAL, transparent: true,
+    blending: THREE.AdditiveBlending, depthWrite: false }));
+  h.scale.setScalar(1.6 * m.scale.x); scene.add(h); halos.push(h);
+}
+
+// central hub
+const hub = new THREE.Group(); scene.add(hub);
+const hubCore = new THREE.Mesh(new THREE.IcosahedronGeometry(1.4, 1),
+  new THREE.MeshStandardMaterial({ color: 0x0f2a3d, emissive: 0x2dd4bf, emissiveIntensity: 0.35, roughness: 0.2, metalness: 0.6, flatShading: true, transparent: true }));
+const hubWire = new THREE.Mesh(new THREE.IcosahedronGeometry(2.1, 1),
+  new THREE.MeshBasicMaterial({ color: 0x2dd4bf, wireframe: true, transparent: true, opacity: 0.35 }));
+const hubGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: GLOW, color: 0x2dd4bf, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+hubGlow.scale.setScalar(9);
+hub.add(hubCore, hubWire, hubGlow);
+
+// ---------- edges ----------
+function nearest(list, p, k, skip) {
+  return list.map((q, j) => [q.distanceTo(p), j]).filter(([, j]) => j !== skip).sort((a, b) => a[0] - b[0]).slice(0, k).map(([, j]) => j);
+}
+const edges = []; const seen = new Set();
+for (let i = 0; i < CORE; i++) for (const j of nearest(sphereP, sphereP[i], 3, i)) {
+  const key = i < j ? `${i}-${j}` : `${j}-${i}`;
+  if (!seen.has(key)) { seen.add(key); edges.push([i, j, rand()]); }
+}
+const coreEdgeCount = edges.length;
+for (let e = 0; e < EXTRA; e++) {
+  const i = CORE + e;
+  for (const j of nearest(sphereP, outerP[e], 2, -1)) edges.push([i, j, rand()]);
+  const k = nearest(outerP, outerP[e], 2, e)[1];
+  edges.push([i, CORE + k, rand()]);
+}
+// spokes from hub to a few core nodes
+const spokes = [];
+for (let i = 0; i < CORE; i += 4) spokes.push(i);
+
+const E = edges.length + spokes.length;
+const ePos = new Float32Array(E * 6), eCol = new Float32Array(E * 6);
+const eGeo = new THREE.BufferGeometry();
+eGeo.setAttribute('position', new THREE.BufferAttribute(ePos, 3));
+eGeo.setAttribute('color', new THREE.BufferAttribute(eCol, 3));
+const edgeLines = new THREE.LineSegments(eGeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true,
+  blending: THREE.AdditiveBlending, depthWrite: false }));
+scene.add(edgeLines);
+
+// ---------- pulses ----------
+const P = 70, pulses = [];
+for (let i = 0; i < P; i++) {
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: GLOW, color: i % 3 === 0 ? 0xfbbf24 : 0xffffff, transparent: true,
+    blending: THREE.AdditiveBlending, depthWrite: false }));
+  s.scale.setScalar(0.9); scene.add(s);
+  pulses.push({ s, speed: 0.55 + rand() * 0.6, off: rand() * 10, salt: Math.floor(rand() * 9973) });
+}
+
+// ---------- timeline ----------
+// 0..1 progress of extra node e flying into place
+const arrival = (e, t) => ease(range(t, 24 + (e / EXTRA) * 3.2, 25.6 + (e / EXTRA) * 3.2));
+const tmp = new THREE.Vector3(), tmp2 = new THREE.Vector3(), cur = [];
+for (let i = 0; i < N; i++) cur.push(new THREE.Vector3());
+const col = new THREE.Color();
+
+const el = (id) => document.getElementById(id);
+const ui = { title: el('titleCard'), cap1: el('cap1'), cap2: el('cap2'), cap3: el('cap3'), cap4: el('cap4'), cta: el('ctaCard'), brand: el('brand'), progress: el('progress') };
+
+function setUI(node, o, dy = 18) {
+  node.style.opacity = o.toFixed(3);
+  node.style.transform = `translateY(${((1 - o) * dy).toFixed(2)}px)`;
+  node.style.visibility = o < 0.002 ? 'hidden' : 'visible';
+}
+
+function renderAt(t) {
+  t = clamp(t, 0, DURATION);
+
+  // --- core node layout: ring (title) -> scattered (problem) -> sphere (connect...)
+  const kScatter = ease(range(t, 5.4, 7.6));
+  const kSphere = ease(range(t, 11.6, 14.2));
+  const spin = t * 0.25;
+  for (let i = 0; i < CORE; i++) {
+    lerpV(tmp, ringP[i], scatterP[i], kScatter);
+    tmp2.copy(sphereP[i]).applyAxisAngle(THREE.Object3D.DEFAULT_UP, spin);
+    lerpV(cur[i], tmp, tmp2, kSphere);
+    // gentle float
+    cur[i].y += Math.sin(t * 1.3 + i) * 0.12 * (1 - kSphere * 0.7);
+    // ring intro: nodes fly in from scatter at the very start
+    if (t < 2) lerpV(cur[i], scatterP[i], cur[i], ease(range(t, 0, 2)));
+    const grey = kScatter * (1 - kSphere);
+    col.copy(TEAL).lerp(GREY, grey);
+    nodes[i].material.color.copy(col); nodes[i].material.emissive.copy(col);
+    nodes[i].material.emissiveIntensity = 0.7 + 0.5 * Math.max(0, Math.sin(t * 3 + i * 0.7)) * kSphere;
+    nodes[i].position.copy(cur[i]); halos[i].position.copy(cur[i]);
+    halos[i].material.color.copy(col);
+    halos[i].material.opacity = 0.75 * (1 - grey * 0.75);
+    nodes[i].material.opacity = 1;
+  }
+  // --- extra nodes fly in during "grow"
+  for (let e = 0; e < EXTRA; e++) {
+    const i = CORE + e;
+    const k = arrival(e, t);
+    tmp.copy(outerP[e]).applyAxisAngle(THREE.Object3D.DEFAULT_UP, spin);
+    tmp2.copy(startExtra[e]).applyAxisAngle(THREE.Object3D.DEFAULT_UP, spin);
+    lerpV(cur[i], tmp2, tmp, k);
+    nodes[i].position.copy(cur[i]); halos[i].position.copy(cur[i]);
+    nodes[i].visible = halos[i].visible = k > 0.001;
+    nodes[i].material.opacity = k; halos[i].material.opacity = 0.75 * k;
+  }
+
+  // --- hub
+  const hubIn = ease(range(t, 12.4, 15));
+  const hubS = hubIn * (1 + 0.06 * Math.sin(t * 4));
+  hub.scale.setScalar(Math.max(0.0001, hubS));
+  hub.rotation.y = t * 0.4; hub.rotation.x = t * 0.15;
+  hubWire.rotation.y = -t * 0.6;
+  hubGlow.material.opacity = 0.35 * hubIn;
+
+  // --- edges
+  const connectT = (t - 12.6) / 4.2;    // core edges draw in
+  const growT = (t - 24.6) / 4.2;       // extra edges draw in
+  const pulseGlow = smooth(range(t, 18, 19.5));
+  for (let e = 0; e < E; e++) {
+    let a, b, stagger, isExtra = false, isSpoke = false;
+    if (e < edges.length) { [a, b, stagger] = edges[e]; isExtra = e >= coreEdgeCount; }
+    else { a = spokes[e - edges.length]; b = -1; stagger = (e - edges.length) / spokes.length; isSpoke = true; }
+    const pa = cur[a], pb = b < 0 ? hub.position : cur[b];
+    const local = isExtra ? growT : connectT;
+    let k = smooth((local - stagger * 0.7) / 0.3);
+    if (isExtra) {   // only link extra nodes once both ends have landed
+      const land = (n) => n < CORE ? 1 : smooth((arrival(n - CORE, t) - 0.85) / 0.15);
+      k = Math.min(land(a), land(b), smooth(range(t, 24.6, 25.4)));
+    }
+    // draw line from a towards b by k
+    ePos[e * 6] = pa.x; ePos[e * 6 + 1] = pa.y; ePos[e * 6 + 2] = pa.z;
+    ePos[e * 6 + 3] = pa.x + (pb.x - pa.x) * k; ePos[e * 6 + 4] = pa.y + (pb.y - pa.y) * k; ePos[e * 6 + 5] = pa.z + (pb.z - pa.z) * k;
+    const base = isSpoke ? 0.18 : 0.45 + 0.25 * pulseGlow;
+    const c = isExtra ? AMBER : TEAL;
+    const i0 = base * k, i1 = base * k * (0.6 + 0.4 * k);
+    eCol[e * 6] = c.r * i0; eCol[e * 6 + 1] = c.g * i0; eCol[e * 6 + 2] = c.b * i0;
+    eCol[e * 6 + 3] = c.r * i1; eCol[e * 6 + 4] = c.g * i1; eCol[e * 6 + 5] = c.b * i1;
+  }
+  eGeo.attributes.position.needsUpdate = true; eGeo.attributes.color.needsUpdate = true;
+  eGeo.computeBoundingSphere();
+
+  // --- pulses travel along edges (collaborate onward)
+  const pulseOn = smooth(range(t, 17.6, 19.2));
+  const usable = t < 28.5 ? coreEdgeCount : edges.length;
+  for (const p of pulses) {
+    const x = t * p.speed + p.off, cyc = Math.floor(x), f = x - cyc;
+    const [a, b] = edges[(cyc * 131 + p.salt) % usable];
+    lerpV(p.s.position, cur[a], cur[b], f);
+    p.s.material.opacity = pulseOn * Math.sin(f * Math.PI);
+    p.s.visible = pulseOn > 0.001;
+  }
+
+  // --- camera
+  const orbit = t * 0.12 + 0.4;
+  let dist = 24;
+  dist += 10 * smooth(range(t, 5.4, 8)) - 10 * smooth(range(t, 11.5, 15)); // scatter wide, then in
+  dist -= 4 * smooth(range(t, 17, 20)) - 4 * smooth(range(t, 22.5, 24.5)); // close-up on collaboration
+  dist += 12 * smooth(range(t, 24, 30));                                    // pull back to show growth
+  const camY = 3 + 3 * Math.sin(t * 0.2);
+  const titleBias = 1 - smooth(range(t, 4.5, 7)); // front-on during title
+  const ang = orbit * (1 - titleBias);
+  camera.position.set(Math.sin(ang) * dist, camY * (1 - titleBias), Math.cos(ang) * dist);
+  // offset the look target so captions on the left don't overlap the network
+  const capShift = smooth(range(t, 6, 7.5)) * (1 - smooth(range(t, 29.5, 31)));
+  tmp.set(Math.cos(ang), 0, -Math.sin(ang)).multiplyScalar(-6 * capShift);
+  camera.lookAt(tmp);
+
+  // final: network recedes behind CTA
+  const outro = smooth(range(t, 30, 32));
+  edgeLines.material.opacity = 1 - 0.55 * outro;
+  scene.fog.density = 0.022 + 0.02 * outro;
+
+  renderer.render(scene, camera);
+
+  // --- overlay text
+  setUI(ui.title, window_(t, 0.8, 6.0, 0.9), 24);
+  setUI(ui.cap1, window_(t, 6.6, 12.0));
+  setUI(ui.cap2, window_(t, 12.6, 18.0));
+  setUI(ui.cap3, window_(t, 18.6, 24.0));
+  setUI(ui.cap4, window_(t, 24.6, 30.2));
+  setUI(ui.cta, smooth(range(t, 30.6, 31.8)), 24);
+  setUI(ui.brand, smooth(range(t, 6.2, 7.2)) * (1 - smooth(range(t, 30, 30.8))), 0);
+  ui.progress.style.width = `${(t / DURATION) * 100}%`;
+}
+
+// ---------- playback ----------
+let currentT = 0, paused = false, last = performance.now();
+const playBtn = el('playBtn');
+playBtn.onclick = () => { paused = !paused; playBtn.textContent = paused ? 'Play' : 'Pause'; last = performance.now(); };
+el('replayBtn').onclick = () => { currentT = 0; paused = false; playBtn.textContent = 'Pause'; last = performance.now(); };
+el('ctaBtn').onclick = (e) => { e.preventDefault(); currentT = 0; };
+
+function loop(now) {
+  if (!paused) {
+    currentT += (now - last) / 1000;
+    if (currentT > DURATION + 2) currentT = 0; // hold the CTA briefly, then loop
+  }
+  last = now;
+  renderAt(currentT);
+  requestAnimationFrame(loop);
+}
+
+// render hook for frame-accurate export
+window.__DURATION = DURATION;
+window.__renderAt = (t) => { currentT = t; renderAt(t); };
+if (RENDER_MODE) { renderAt(0); window.__ready = true; }
+else requestAnimationFrame(loop);
+</script>
+</body>
+</html>

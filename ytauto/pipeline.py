@@ -69,7 +69,12 @@ def make_video(script: dict, out_root: Path, engine: str = "auto", voice: str | 
             scene_props.append({"durationInFrames": frames, "visual": scene["visual"]})
             words += [{"text": t, "start": round(offset + s, 3), "end": round(offset + e, 3)} for t, s, e in scene_words]
             offset += seconds
-        tts.concat_wavs(parts, job_dir / "voice.wav")
+        tts.concat_wavs(parts, job_dir / "voice_raw.wav")
+        # Normalise speech loudness so the finished video sits near YouTube's -14 LUFS playback level
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(job_dir / "voice_raw.wav"),
+                        "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "44100", "-ac", "1",
+                        str(job_dir / "voice.wav")], check=True)
+        (job_dir / "voice_raw.wav").unlink()
         for wav, _ in parts:
             wav.unlink()
         print(f"      total length {offset:.1f}s")

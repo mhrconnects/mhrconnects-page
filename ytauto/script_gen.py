@@ -9,7 +9,8 @@ from . import config
 ICONS = ["brain", "chip", "chat", "spark", "book", "code", "image", "shield", "bolt", "eye", "search",
          "layers", "target", "globe", "idea", "bot", "data", "magic", "doc", "learn", "rocket", "puzzle",
          "network", "time"]
-VISUAL_TYPES = ["hook", "concept", "list", "compare", "flow", "stat", "chat", "cta"]
+VISUAL_TYPES = ["hook", "concept", "list", "compare", "flow", "stat", "chat", "cta", "app", "section"]
+HIGHLIGHTS = ["none", "new_chat", "projects", "attach", "model", "input"]
 
 VISUAL_GUIDE = """Each scene has a motion-graphic "visual". Pick the type that best SHOWS what the narration says:
 - hook: first scene only. title = 3-6 punchy words. subtitle = tiny label like "AI in 60 seconds".
@@ -33,6 +34,7 @@ VISUAL_SCHEMA = {
         "items": {"type": "array", "items": {"type": "string"}},
         "icon": {"type": "string", "enum": ICONS},
         "number": {"type": "string"},
+        "highlight": {"type": "string", "enum": HIGHLIGHTS},
     },
     "required": ["type", "title"],
     "additionalProperties": False,
@@ -53,6 +55,7 @@ SCRIPT_SCHEMA = {
                 "properties": {
                     "narration": {"type": "string", "description": "What the voiceover says, 1-3 short spoken sentences"},
                     "visual": VISUAL_SCHEMA,
+                    "chapter": {"type": "string", "description": "Long-form only: chapter name, set on the first scene of each chapter"},
                 },
                 "required": ["narration", "visual"],
                 "additionalProperties": False,
@@ -79,6 +82,33 @@ IDEAS_SCHEMA = {
     "required": ["ideas"],
     "additionalProperties": False,
 }
+
+
+LONG_VISUAL_GUIDE = VISUAL_GUIDE.replace("Use 6-8 scenes, vary the visual types, and never use the same type twice in a row.", "") + """
+Two more types for long videos:
+- app: a Claude-style chat window, for showing how to use Claude step by step.
+  title = short label ("Start a new chat"). highlight = the button the cursor clicks:
+  new_chat, projects, attach (paperclip, for uploading files), model (model picker), input (message box), or none.
+  items = [prompt typed into the box (max 15 words), Claude's answer (max 45 words)] - or leave items empty to only point at a button.
+  subtitle = an attached file name like "notes.pdf" when demonstrating uploads.
+- section: chapter title card. number = "01", "02", ...; title = chapter name (max 4 words); subtitle optional.
+Long videos: 30-45 scenes, each 15-40 words of narration. Start each chapter with a section scene and set
+"chapter" on that scene. Lean on app scenes whenever you show Claude in use, so viewers feel like they are inside the app.
+Never use the same type more than twice in a row."""
+
+
+def _long_system_prompt(channel: str, niche: str) -> str:
+    name = f'"{channel}", ' if channel else ""
+    return f"""You write long-form (5-7 minute) tutorial scripts for {name}a faceless YouTube channel that teaches AI. Niche: {niche}.
+
+The viewer hears a calm, friendly voiceover over premium motion graphics and recreated Claude app screens.
+Structure: a 15-second hook that promises a clear outcome, then 4-6 chapters, then a short recap and a call to action
+to subscribe for the next lesson. Teach step by step for complete beginners. Use concrete, realistic example prompts.
+Accuracy matters most: describe only Claude features you are confident exist, in general terms (e.g. "depending on your plan").
+Never state prices, usage limits or release dates. Tell viewers that features change and to check claude.ai.
+Total narration: 800-950 words.
+
+{LONG_VISUAL_GUIDE}"""
 
 
 def _system_prompt(channel: str, niche: str) -> str:
@@ -117,7 +147,11 @@ def _call_claude(system: str, user: str, schema: dict) -> dict:
     return json.loads(text)
 
 
-def generate_script(topic: str, channel: str = config.CHANNEL_NAME, niche: str = config.NICHE) -> dict:
+def generate_script(topic: str, channel: str = config.CHANNEL_NAME, niche: str = config.NICHE, long: bool = False) -> dict:
+    if long:
+        script = _call_claude(_long_system_prompt(channel, niche), f"Write a long-form YouTube tutorial script about: {topic}", SCRIPT_SCHEMA)
+        script["format"] = "long"
+        return script
     return _call_claude(_system_prompt(channel, niche), f"Write a YouTube Short script about: {topic}", SCRIPT_SCHEMA)
 
 

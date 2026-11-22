@@ -31,6 +31,7 @@ def main() -> int:
     m.add_argument("topic", nargs="?", help="what the video is about")
     m.add_argument("--script", type=Path, help="use this script JSON instead of asking Claude")
     m.add_argument("--script-only", action="store_true", help="only write the script JSON, for review/editing")
+    m.add_argument("--long", action="store_true", help="landscape 5-7 minute tutorial instead of a Short")
     video_opts(m)
 
     b = sub.add_parser("batch", help="make one video per topic line in a file")
@@ -73,7 +74,7 @@ def main() -> int:
         script = json.loads(args.script.read_text(encoding="utf-8"))
     elif args.topic:
         print(f"Writing script with Claude: {args.topic}")
-        script = script_gen.generate_script(args.topic)
+        script = script_gen.generate_script(args.topic, long=args.long)
     else:
         ap.error("give a topic or --script FILE")
 

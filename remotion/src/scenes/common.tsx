@@ -1,4 +1,5 @@
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { useLayout } from "../layout";
 import { CLAMP, DISPLAY, SANS, glide, parseEmphasis, pop } from "../theme";
 
 export type SceneProps = {
@@ -15,26 +16,41 @@ export type SceneProps = {
 export const Stage: React.FC<{ children: React.ReactNode; align?: "center" | "start" }> = ({ children, align = "center" }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
+  const L = useLayout();
   const out = interpolate(frame, [durationInFrames - 8, durationInFrames], [0, 1], CLAMP);
+  // slow camera push, capped so long scenes don't zoom too far
+  const push = interpolate(frame, [0, Math.min(durationInFrames, 300)], [1, 1.045], CLAMP);
   return (
     <div
       style={{
         position: "absolute",
-        top: 170,
-        left: 80,
-        right: 80,
-        height: 1060,
+        top: L.stageTop,
+        left: L.stageX,
+        right: L.stageX,
+        height: L.stageHeight,
         display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: align === "center" ? "center" : "flex-start",
-        gap: 40,
-        scale: interpolate(frame, [0, durationInFrames], [1, 1.045]) - out * 0.06,
+        justifyContent: "center",
+        alignItems: align === "center" ? "center" : "flex-start",
+        scale: (push - out * 0.06) * L.contentScale,
         opacity: 1 - out,
         filter: `blur(${out * 14}px)`,
       }}
     >
-      {children}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          maxWidth: L.contentMaxWidth,
+          height: L.landscape ? undefined : "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: align === "center" ? "center" : "flex-start",
+          gap: 40,
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };

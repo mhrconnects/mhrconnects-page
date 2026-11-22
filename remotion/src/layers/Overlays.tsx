@@ -1,4 +1,5 @@
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { useLayout } from "../layout";
 import { CLAMP, DISPLAY } from "../theme";
 
 /** Light sweep + flash on every scene cut. */
@@ -52,11 +53,12 @@ export const ProgressBar: React.FC<{ accent: string }> = ({ accent }) => {
 
 export const Handle: React.FC<{ handle: string }> = ({ handle }) => {
   const { width } = useVideoConfig();
+  const L = useLayout();
   return (
     <div
       style={{
         position: "absolute",
-        bottom: 250,
+        bottom: L.handleBottom,
         width,
         textAlign: "center",
         fontFamily: DISPLAY,

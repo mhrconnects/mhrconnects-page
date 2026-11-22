@@ -6,7 +6,9 @@ export type VisualType =
   | "flow"
   | "stat"
   | "chat"
-  | "cta";
+  | "cta"
+  | "app"
+  | "section";
 
 export type Visual = {
   type: VisualType;
@@ -16,11 +18,14 @@ export type Visual = {
   items?: string[];
   icon?: string;
   number?: string;
+  /** app scene: UI element to point at */
+  highlight?: string;
 };
 
 export type SceneData = {
   durationInFrames: number;
   visual: Visual;
+  chapter?: string;
 };
 
 /** One spoken word, timed in seconds from the start of the video. */

@@ -19,6 +19,19 @@ const demo: ShortProps = {
   ],
 };
 
+const longDemo: ShortProps = {
+  sfx: false,
+  words: [],
+  scenes: [
+    { durationInFrames: 90, visual: { type: "hook", title: "Claude *basics*", subtitle: "Beginner guide" } },
+    { durationInFrames: 120, visual: { type: "section", number: "01", title: "What is Claude?", subtitle: "Your AI assistant" } },
+    { durationInFrames: 150, visual: { type: "app", title: "Start a new chat", highlight: "new_chat" } },
+    { durationInFrames: 240, visual: { type: "app", title: "Your first prompt", items: ["Explain compound interest like I'm 12", "Imagine you plant one apple tree. Each year it grows apples, and those apples grow new trees. Your money does the same thing."] } },
+    { durationInFrames: 240, visual: { type: "app", title: "Upload a file", subtitle: "report.pdf", highlight: "attach", items: ["Summarize this report in 5 bullet points", "Here are the five key points from your report..."] } },
+    { durationInFrames: 120, visual: { type: "list", title: "Better *prompts*", items: ["Context", "Task", "Example", "Format"] } },
+  ],
+};
+
 export const RemotionRoot: React.FC = () => (
   <>
     <Composition
@@ -29,6 +42,16 @@ export const RemotionRoot: React.FC = () => (
       fps={30}
       durationInFrames={900}
       defaultProps={demo}
+      calculateMetadata={calculateShortMetadata}
+    />
+    <Composition
+      id="Long"
+      component={Short}
+      width={1920}
+      height={1080}
+      fps={30}
+      durationInFrames={900}
+      defaultProps={longDemo}
       calculateMetadata={calculateShortMetadata}
     />
     <Still

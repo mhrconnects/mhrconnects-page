@@ -35,6 +35,17 @@ def write_srt(words: list[dict], out: Path, per_line: int = 6) -> None:
     out.write_text("\n".join(lines), encoding="utf-8")
 
 
+def chapters_text(scenes: list[dict], starts: list[float]) -> str:
+    """YouTube chapter list ("0:00 Intro") built from scenes that carry a "chapter" name."""
+    marks = [(t, sc["chapter"]) for sc, t in zip(scenes, starts) if sc.get("chapter")]
+    if not marks:
+        return ""
+    if marks[0][0] > 0:
+        marks.insert(0, (0.0, "Intro"))
+    fmt = lambda t: f"{int(t // 60)}:{int(t % 60):02}"
+    return "Chapters:\n" + "\n".join(f"{fmt(t)} {name}" for t, name in marks)
+
+
 def _remotion(args: list[str]) -> None:
     if not (REMOTION_DIR / "node_modules").exists():
         raise RuntimeError(f"Remotion isn't installed yet. Run:  cd {REMOTION_DIR} && npm install")
@@ -58,14 +69,19 @@ def make_video(script: dict, out_root: Path, engine: str = "auto", voice: str | 
     try:
         scenes = script["scenes"]
         print(f"[1/3] Voiceover for {len(scenes)} scenes")
-        parts, scene_props, words = [], [], []
+        parts, scene_props, words, starts = [], [], [], []
         offset = 0.0
         for i, scene in enumerate(scenes):
             wav = job_dir / f"scene{i:02}.wav"
-            duration, scene_words = tts.synthesize(scene["narration"], wav, engine=engine, voice=voice)
+            duration, scene_words = tts.synthesize(
+                scene["narration"], wav, engine=engine, voice=voice,
+                pad_seconds=0.55 if script.get("format") == "long" else 0.35,
+                rate="+0%" if script.get("format") == "long" else None,  # calmer pace for tutorials
+            )
             frames = math.ceil(duration * config.FPS)
             seconds = frames / config.FPS
             parts.append((wav, seconds))
+            starts.append(offset)
             scene_props.append({"durationInFrames": frames, "visual": scene["visual"]})
             words += [{"text": t, "start": round(offset + s, 3), "end": round(offset + e, 3)} for t, s, e in scene_words]
             offset += seconds
@@ -88,7 +104,8 @@ def make_video(script: dict, out_root: Path, engine: str = "auto", voice: str | 
         props_file.write_text(json.dumps(props), encoding="utf-8")
 
         print("[2/3] Rendering motion graphics (Remotion)")
-        _remotion(["render", "src/index.ts", "Short", str(out_dir / "video.mp4"), f"--props={props_file}",
+        long = script.get("format") == "long"
+        _remotion(["render", "src/index.ts", "Long" if long else "Short", str(out_dir / "video.mp4"), f"--props={props_file}",
                    "--codec=h264", "--crf=18", f"--concurrency={os.cpu_count() or 2}"])
 
         print("[3/3] Thumbnail, captions and metadata")
@@ -100,9 +117,13 @@ def make_video(script: dict, out_root: Path, engine: str = "auto", voice: str | 
         }), encoding="utf-8")
         _remotion(["still", "src/index.ts", "Thumbnail", str(out_dir / "thumbnail.png"), f"--props={thumb_props}"])
         write_srt(words, out_dir / "captions.srt")
+        description = script["description"]
+        chapters = chapters_text(scenes, starts)
+        if chapters:
+            description = f"{description}\n\n{chapters}"
         (out_dir / "metadata.json").write_text(json.dumps({
             "title": script["title"].replace("*", ""),
-            "description": script["description"],
+            "description": description,
             "tags": script["tags"],
             "categoryId": "27",  # Education
             "duration_seconds": round(offset, 1),
@@ -111,6 +132,6 @@ def make_video(script: dict, out_root: Path, engine: str = "auto", voice: str | 
         shutil.rmtree(job_dir, ignore_errors=True)
 
     print(f"Done in {time.time() - started:.0f}s -> {out_dir}")
-    if offset > 60:
+    if offset > 60 and script.get("format") != "long":
         print("  ! Over 60 seconds: shorten the script so YouTube treats it as a Short.")
     return out_dir

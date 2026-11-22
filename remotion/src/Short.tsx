@@ -6,6 +6,7 @@ import { CutFlash, Handle, ProgressBar } from "./layers/Overlays";
 import {
   ChatScene, CompareScene, ConceptScene, CtaScene, FlowScene, HookScene, ListScene, StatScene,
 } from "./scenes/Scenes";
+import { AppScene, SectionScene } from "./scenes/AppScene";
 import { accentAt } from "./theme";
 import type { SceneData, ShortProps } from "./types";
 
@@ -35,6 +36,8 @@ const SceneSwitch: React.FC<{ scene: SceneData; index: number; sfx: boolean; han
     case "stat": return <StatScene {...common} />;
     case "chat": return <ChatScene {...common} />;
     case "cta": return <CtaScene {...common} handle={handle} />;
+    case "app": return <AppScene {...common} sfx={sfx} />;
+    case "section": return <SectionScene {...common} />;
     default: return <HookScene {...common} />;
   }
 };

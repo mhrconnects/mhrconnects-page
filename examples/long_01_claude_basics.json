@@ -1,0 +1,158 @@
+{
+  "format": "long",
+  "title": "Claude for Beginners: The Complete Basics in 6 Minutes",
+  "description": "New to Claude? This beginner guide walks you through everything: what Claude is, how to get started, your first chat, how to write better prompts, working with files and projects, and how to use it wisely. Features change over time, so check claude.ai for the latest. Not affiliated with Anthropic.\n\n#claude #ai #learnai #claudeai #aitutorial",
+  "tags": ["claude ai", "claude tutorial", "how to use claude", "claude for beginners", "anthropic claude", "claude basics", "ai assistant", "learn ai", "prompt engineering", "ai tutorial", "claude tips"],
+  "thumbnail_text": "Claude *basics*",
+  "thumbnail_icon": "learn",
+  "scenes": [
+    {
+      "chapter": "Intro",
+      "narration": "Claude is one of the most capable AI assistants out there. In the next six minutes, you'll go from never using it, to using it with confidence.",
+      "visual": {"type": "hook", "title": "Claude *basics*", "subtitle": "Complete beginner guide"}
+    },
+    {
+      "narration": "Here's the plan. How to get started. Your first chat. How to write great prompts. And working with files and projects. Plus, how to use it wisely.",
+      "visual": {"type": "list", "title": "What you'll *learn*", "items": ["Getting started", "Your first chat", "Better prompts", "Files & projects"]}
+    },
+    {
+      "chapter": "What is Claude?",
+      "narration": "First, what actually is Claude?",
+      "visual": {"type": "section", "number": "01", "title": "What is Claude?", "subtitle": "Your AI assistant"}
+    },
+    {
+      "narration": "Claude is an AI assistant made by a company called Anthropic. You talk to it in plain language, a bit like texting a really smart friend, and it answers.",
+      "visual": {"type": "concept", "title": "*Claude*", "subtitle": "An AI assistant made by Anthropic", "icon": "chat"}
+    },
+    {
+      "narration": "You can use it to write and edit, explain difficult topics, brainstorm ideas, analyze documents, help with code, and plan just about anything.",
+      "visual": {"type": "list", "title": "What it *helps* with", "items": ["Write & edit", "Explain anything", "Brainstorm ideas", "Analyze documents"]}
+    },
+    {
+      "narration": "Think of it less like a search engine, and more like a collaborator. Instead of a list of links, you get an answer you can shape together.",
+      "visual": {"type": "compare", "title": "Not just *search*", "items": ["Search engine: A list of links", "Claude: An answer you shape together"]}
+    },
+    {
+      "chapter": "Getting started",
+      "narration": "Let's get you set up.",
+      "visual": {"type": "section", "number": "02", "title": "Getting started", "subtitle": "Two minutes, tops"}
+    },
+    {
+      "narration": "Go to claude dot ai in your browser, or download the Claude app for your phone or computer. Sign up with your email or a Google account, and you're in.",
+      "visual": {"type": "flow", "title": "Get *set up*", "items": ["Visit claude.ai or get the app", "Sign up with email or Google", "Start chatting"]}
+    },
+    {
+      "narration": "You can start for free. Paid plans give you more usage and extra features. So start free, and upgrade only if you need more.",
+      "visual": {"type": "compare", "title": "Free vs *paid*", "items": ["Free: Great for getting started", "Paid: More usage and extra features"]}
+    },
+    {
+      "narration": "This is the main screen. On the left is your sidebar. New chat starts a fresh conversation, any time you want a clean slate.",
+      "visual": {"type": "app", "title": "The main screen", "highlight": "new_chat"}
+    },
+    {
+      "narration": "Below that are your past chats, and your projects. We'll come back to projects later, because they're really useful.",
+      "visual": {"type": "app", "title": "Chats & projects", "highlight": "projects"}
+    },
+    {
+      "narration": "At the bottom is the message box. This is where you type. The button on the left lets you add files, which we'll try in a moment.",
+      "visual": {"type": "app", "title": "The message box", "highlight": "input"}
+    },
+    {
+      "narration": "And the model menu lets you choose between different versions of Claude, depending on your plan. Some are faster, some are more powerful. The default is a great place to start.",
+      "visual": {"type": "app", "title": "Pick a model", "highlight": "model"}
+    },
+    {
+      "chapter": "Your first chat",
+      "narration": "Now, let's actually use it.",
+      "visual": {"type": "section", "number": "03", "title": "Your first chat", "subtitle": "Ask anything"}
+    },
+    {
+      "narration": "Type a question, just like you'd ask a person. Let's try: explain compound interest like I'm twelve.",
+      "visual": {"type": "app", "title": "Ask anything", "items": ["Explain compound interest like I'm 12", "Imagine you plant one apple tree. Every year it grows apples, and some of those apples grow into new trees. Your money works the same way: it earns money, and that money earns even more."]}
+    },
+    {
+      "narration": "Here's the secret most beginners miss. It's a conversation. You don't have to get it perfect the first time. Just keep talking.",
+      "visual": {"type": "concept", "title": "*Follow-ups*", "subtitle": "Keep the conversation going", "icon": "chat"}
+    },
+    {
+      "narration": "Ask it to make the answer shorter, add an example, or change the tone. Claude remembers what you said earlier in the same chat.",
+      "visual": {"type": "app", "title": "Keep refining", "items": ["Now show me a real example with $100", "Sure. Save $100 at 5% a year and after one year you have $105. The next year you earn 5% on $105, so you have $110.25, and it keeps growing."]}
+    },
+    {
+      "narration": "And if an answer misses the mark, you can edit your message, ask Claude to try again, or simply add more detail.",
+      "visual": {"type": "list", "title": "If it *misses*", "items": ["Edit your message", "Ask it to try again", "Add more detail"]}
+    },
+    {
+      "chapter": "Better prompts",
+      "narration": "Next, the skill that makes the biggest difference. Writing better prompts.",
+      "visual": {"type": "section", "number": "04", "title": "Better prompts", "subtitle": "The biggest upgrade"}
+    },
+    {
+      "narration": "Vague questions get vague answers. Compare: write a workout plan. With: I'm a beginner with twenty minutes a day and no equipment, make me a one-week plan as a table.",
+      "visual": {"type": "compare", "title": "Vague vs *specific*", "items": ["Vague: Write a workout plan", "Specific: Beginner, 20 min a day, no equipment, as a table"]}
+    },
+    {
+      "narration": "Use four parts. Context: who you are and why. Task: what you want. Example: what good looks like. And format: a list, a table, or an email.",
+      "visual": {"type": "flow", "title": "The *4-part* prompt", "items": ["Context", "Task", "Example", "Format"]}
+    },
+    {
+      "narration": "Here's that in action. I run a small bakery. Write three friendly Instagram captions for our new cinnamon rolls, under twenty words each.",
+      "visual": {"type": "app", "title": "Prompt in action", "items": ["I run a small bakery. Write 3 friendly Instagram captions for our new cinnamon rolls, under 20 words each.", "1. Fresh cinnamon rolls just landed, and they won't last long. 2. Warm, gooey, and worth every crumb. 3. Your morning coffee just found its best friend."]}
+    },
+    {
+      "narration": "One more pro tip. Tell Claude who to be. For example: act as a patient math tutor. It changes the style of every answer.",
+      "visual": {"type": "concept", "title": "Give it a *role*", "subtitle": "\"Act as a patient math tutor\"", "icon": "learn"}
+    },
+    {
+      "chapter": "Files & projects",
+      "narration": "Claude can also work with your own files.",
+      "visual": {"type": "section", "number": "05", "title": "Files & projects", "subtitle": "Bring your own material"}
+    },
+    {
+      "narration": "Click the attach button, upload a PDF, a document or an image, and ask about it. Like: summarize this report in five bullet points.",
+      "visual": {"type": "app", "title": "Upload a file", "subtitle": "report.pdf", "highlight": "attach", "items": ["Summarize this report in 5 bullet points", "Here are the five key points: sales grew in every region, costs rose slightly, online orders doubled, two new stores opened, and the team plans to expand next year."]}
+    },
+    {
+      "narration": "This is great for long reports, lecture notes, contracts you want explained in plain English, or even a photo of a chart.",
+      "visual": {"type": "list", "title": "Try it *with*", "items": ["Long reports", "Lecture notes", "Contracts, explained", "Charts & photos"]}
+    },
+    {
+      "narration": "Projects keep related chats in one place. Depending on your plan, you can add files and instructions that Claude uses in every chat inside that project.",
+      "visual": {"type": "app", "title": "Projects", "highlight": "projects"}
+    },
+    {
+      "narration": "For example, make a project for a class, add your notes, and every chat inside it already knows the material.",
+      "visual": {"type": "concept", "title": "*Projects*", "subtitle": "Shared files and instructions for related chats", "icon": "layers"}
+    },
+    {
+      "narration": "And when you ask for something bigger, like a document, some code, or a simple app, Claude can show it in its own panel next to the chat, so it's easy to view and copy.",
+      "visual": {"type": "concept", "title": "*Artifacts*", "subtitle": "Bigger outputs in their own panel", "icon": "doc"}
+    },
+    {
+      "chapter": "Use it wisely",
+      "narration": "Finally, how to use Claude wisely.",
+      "visual": {"type": "section", "number": "06", "title": "Use it wisely", "subtitle": "Smart habits"}
+    },
+    {
+      "narration": "Claude is very capable, but it can still make mistakes. For anything important, like health, money, or legal questions, double-check with a trusted source.",
+      "visual": {"type": "compare", "title": "Trust, but *verify*", "items": ["Risky: Trust every answer blindly", "Smart: Double-check important facts"]}
+    },
+    {
+      "narration": "Never share passwords or sensitive personal details. And remember, Claude is a tool to help you think, not to think for you.",
+      "visual": {"type": "list", "title": "Golden *rules*", "items": ["Check important facts", "Never share passwords", "Keep your own judgment"]}
+    },
+    {
+      "narration": "Features change often. So if something looks a little different on your screen, check claude dot ai for the latest.",
+      "visual": {"type": "concept", "title": "Things *change*", "subtitle": "Check claude.ai for the latest features", "icon": "time"}
+    },
+    {
+      "chapter": "Recap",
+      "narration": "Let's recap. Sign up at claude dot ai. Ask anything, then refine with follow-ups. Use the four-part prompt. And bring in your own files and projects.",
+      "visual": {"type": "flow", "title": "*Recap*", "items": ["Sign up at claude.ai", "Ask, then refine", "Use the 4-part prompt", "Add files & projects"]}
+    },
+    {
+      "narration": "You now know more about Claude than most people. Subscribe, because in the next video, we'll go deeper into power prompts you can use every day.",
+      "visual": {"type": "cta", "title": "*Subscribe*", "subtitle": "Next: power prompts"}
+    }
+  ]
+}

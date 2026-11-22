@@ -95,7 +95,7 @@ def estimate_words(text: str, speech_seconds: float) -> list[Word]:
 
 
 def synthesize(text: str, out_wav: Path, engine: str = "auto", voice: str | None = None,
-               pad_seconds: float = 0.35) -> tuple[float, list[Word]]:
+               pad_seconds: float = 0.35, rate: str | None = None) -> tuple[float, list[Word]]:
     """Speak `text` into a 44.1 kHz mono WAV. Returns (duration seconds, word timings)."""
     global _warned
     words: list[Word] | None = None
@@ -103,7 +103,7 @@ def synthesize(text: str, out_wav: Path, engine: str = "auto", voice: str | None
     used = engine
     if engine in ("auto", "edge"):
         try:
-            words = _edge(text, raw, voice or config.EDGE_VOICE, config.EDGE_RATE)
+            words = _edge(text, raw, voice or config.EDGE_VOICE, rate or config.EDGE_RATE)
             used = "edge"
         except Exception as exc:  # network blocked, service change, etc.
             if engine == "edge":

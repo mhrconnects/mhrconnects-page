@@ -73,6 +73,36 @@ def _edge(text: str, out_mp3: Path, voice: str, rate: str) -> list[Word]:
     return _attach_punctuation(text, words)
 
 
+def _edge_by_sentence(text: str, out_wav: Path, voice: str, rate: str, retries: int = 8) -> list[Word]:
+    """Voice one sentence at a time (short requests are far more reliable), retrying each, then join them."""
+    sentences = [s for s in re.split(r"(?<=[.!?])\s+", text.strip()) if s]
+    words: list[Word] = []
+    pieces: list[Path] = []
+    offset = 0.0
+    try:
+        for k, sentence in enumerate(sentences):
+            mp3 = out_wav.with_suffix(f".s{k}.mp3")
+            for attempt in range(retries):  # the free voice service sometimes drops a request
+                try:
+                    sw = _edge(sentence, mp3, voice, rate)
+                    break
+                except Exception:
+                    if attempt == retries - 1:
+                        raise
+                    time.sleep(min(1.0 + attempt, 5.0))
+            wav = out_wav.with_suffix(f".s{k}.wav")
+            _to_wav(mp3, wav, 0.0)
+            mp3.unlink(missing_ok=True)
+            words += [(t, s + offset, e + offset) for t, s, e in sw]
+            offset += _wav_seconds(wav)
+            pieces.append(wav)
+        concat_wavs([(p, _wav_seconds(p)) for p in pieces], out_wav)
+    finally:
+        for p in pieces:
+            p.unlink(missing_ok=True)
+    return words
+
+
 def _espeak(text: str, out_wav: Path, voice: str) -> None:
     exe = shutil.which("espeak-ng") or shutil.which("espeak")
     if not exe:
@@ -100,18 +130,11 @@ def synthesize(text: str, out_wav: Path, engine: str = "auto", voice: str | None
     """Speak `text` into a 44.1 kHz mono WAV. Returns (duration seconds, word timings)."""
     global _warned
     words: list[Word] | None = None
-    raw = out_wav.with_suffix(".raw.mp3")
+    raw = out_wav.with_suffix(".raw.wav")
     used = engine
     if engine in ("auto", "edge"):
         try:
-            for attempt in range(4):  # the free voice service occasionally drops a request; retry before giving up
-                try:
-                    words = _edge(text, raw, voice or config.EDGE_VOICE, rate or config.EDGE_RATE)
-                    break
-                except Exception:
-                    if attempt == 3:
-                        raise
-                    time.sleep(1.5 * (attempt + 1))
+            words = _edge_by_sentence(text, raw, voice or config.EDGE_VOICE, rate or config.EDGE_RATE)
             used = "edge"
         except Exception as exc:  # network blocked, service change, etc.
             if engine == "edge":

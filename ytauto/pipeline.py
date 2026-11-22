@@ -69,15 +69,32 @@ def make_video(script: dict, out_root: Path, engine: str = "auto", voice: str | 
     try:
         scenes = script["scenes"]
         print(f"[1/3] Voiceover for {len(scenes)} scenes")
+        long_form = script.get("format") == "long"
+
+        def voice_all(eng: str) -> list[tuple[float, list]]:
+            return [
+                tts.synthesize(
+                    scene["narration"], job_dir / f"scene{i:02}.wav", engine=eng, voice=voice,
+                    pad_seconds=0.55 if long_form else 0.35,
+                    rate="+0%" if long_form else None,  # calmer pace for tutorials
+                )
+                for i, scene in enumerate(scenes)
+            ]
+
+        # One voice for the whole video: never mix the natural voice with the fallback.
+        if engine == "auto":
+            try:
+                voiced = voice_all("edge")
+            except Exception as exc:
+                print(f"  ! Natural voice failed ({type(exc).__name__}); redoing every scene with the offline voice")
+                voiced = voice_all("espeak")
+        else:
+            voiced = voice_all(engine)
+
         parts, scene_props, words, starts = [], [], [], []
         offset = 0.0
-        for i, scene in enumerate(scenes):
+        for i, (scene, (duration, scene_words)) in enumerate(zip(scenes, voiced)):
             wav = job_dir / f"scene{i:02}.wav"
-            duration, scene_words = tts.synthesize(
-                scene["narration"], wav, engine=engine, voice=voice,
-                pad_seconds=0.55 if script.get("format") == "long" else 0.35,
-                rate="+0%" if script.get("format") == "long" else None,  # calmer pace for tutorials
-            )
             frames = math.ceil(duration * config.FPS)
             seconds = frames / config.FPS
             parts.append((wav, seconds))

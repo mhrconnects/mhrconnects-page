@@ -9,6 +9,7 @@ import os
 import re
 import shutil
 import subprocess
+import time
 import wave
 from pathlib import Path
 
@@ -103,7 +104,14 @@ def synthesize(text: str, out_wav: Path, engine: str = "auto", voice: str | None
     used = engine
     if engine in ("auto", "edge"):
         try:
-            words = _edge(text, raw, voice or config.EDGE_VOICE, rate or config.EDGE_RATE)
+            for attempt in range(4):  # the free voice service occasionally drops a request; retry before giving up
+                try:
+                    words = _edge(text, raw, voice or config.EDGE_VOICE, rate or config.EDGE_RATE)
+                    break
+                except Exception:
+                    if attempt == 3:
+                        raise
+                    time.sleep(1.5 * (attempt + 1))
             used = "edge"
         except Exception as exc:  # network blocked, service change, etc.
             if engine == "edge":

@@ -25,6 +25,7 @@ def main() -> int:
         p.add_argument("--voice", help=f"voice name (default {config.EDGE_VOICE})")
         p.add_argument("--music", type=Path, help="optional background music file (use royalty-free tracks)")
         p.add_argument("--handle", default=config.CHANNEL_HANDLE, help="channel handle shown on screen (default: config.CHANNEL_HANDLE, empty = none)")
+        p.add_argument("--no-sfx", action="store_true", help="turn off whoosh/pop sound effects")
 
     m = sub.add_parser("make", help="make one video")
     m.add_argument("topic", nargs="?", help="what the video is about")
@@ -51,7 +52,7 @@ def main() -> int:
         print(f"\nSaved to {args.save} - run: python -m ytauto batch {args.save}")
         return 0
 
-    opts = dict(engine=args.voice_engine, voice=args.voice, music=args.music, handle=args.handle)
+    opts = dict(engine=args.voice_engine, voice=args.voice, music=args.music, handle=args.handle, sfx=not args.no_sfx)
     out = Path(args.out)
 
     if args.cmd == "batch":

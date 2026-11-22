@@ -1,72 +1,84 @@
-# Faceless YouTube Shorts automation
+# Faceless "Learn AI" YouTube Shorts maker
 
-A faceless video pipeline for an "AI to make money" channel: AI side hustles, freelancing with AI,
-AI tools for small business. Set your channel name and handle in `ytauto/config.py`.
+Claude writes the scripts and ideas, a free AI voice reads them, and [Remotion](https://www.remotion.dev)
+turns them into premium motion-graphics Shorts (1080×1920).
 
 ```
-topic ──► Claude writes script ──► AI voiceover ──► animated 1080×1920 video ──► video.mp4
-                                                                              thumbnail.png
-                                                                              captions.srt
-                                                                              metadata.json (title, description, tags)
+topic ──► Claude writes script + picks a visual per scene ──► voiceover with word timings
+      ──► Remotion motion graphics ──► video.mp4, thumbnail.png, captions.srt, metadata.json
 ```
 
-Each video: a hook, 4–6 tip scenes, a call to action, word-by-word pop-up captions, a progress bar,
-a slow background drift, and your `@handle` watermark (optional). A 40-second Short renders in about 20 seconds.
+**What every video gets:** kinetic titles that slam in, glowing glass cards, a moving 3D grid floor,
+floating particles, film grain, light-sweep transitions, word-by-word karaoke captions, a progress bar,
+whoosh/pop sound effects (generated, so no copyright issues), and a matching thumbnail.
+
+**Scene layouts Claude can choose from:**
+`hook` (opening title) · `concept` (key term + animated icon) · `list` (numbered cards) ·
+`flow` (step-by-step diagram) · `compare` (weak vs strong) · `stat` (counting number + ring) ·
+`chat` (a prompt typed to Claude and the answer) · `cta` (follow button).
 
 ## Setup (once)
 
-1. Install **Python 3.10+** and **ffmpeg** (Windows: `winget install ffmpeg` · Mac: `brew install ffmpeg`).
-2. Install the Python packages:
+1. Install **Python 3.10+**, **Node.js 18+** and **ffmpeg**
+   (Windows: `winget install Python.Python.3.12 OpenJS.NodeJS.LTS ffmpeg` · Mac: `brew install python node ffmpeg`).
+2. Install the packages:
    ```bash
    pip install -r requirements.txt
+   cd remotion && npm install && cd ..
    ```
-3. Get an Anthropic API key from https://console.anthropic.com and set it:
+   The first render downloads a small headless Chrome that Remotion uses to draw frames.
+3. For Claude-written scripts, get an API key at https://console.anthropic.com and set it:
    ```bash
    export ANTHROPIC_API_KEY=sk-ant-...        # Mac/Linux
    setx ANTHROPIC_API_KEY sk-ant-...          # Windows (then open a new terminal)
    ```
-4. Optional: install `espeak-ng` as an offline backup voice. The main voice (Microsoft Edge neural
-   voices via `edge-tts`) is free but needs internet.
 
 ## Use it
 
 ```bash
-# Try it without an API key, using the included sample script
-python -m ytauto make --script examples/sample_script.json
+# Ready-made scripts (no API key needed)
+python -m ytauto make --script examples/01_tokens.json
+python -m ytauto make --script examples/02_hallucinations.json
+python -m ytauto make --script examples/03_prompt_formula.json
 
-# One video from a topic
-python -m ytauto make "How to use ChatGPT to plan your week in 5 minutes"
+# Claude writes a new one
+python -m ytauto make "What is a context window?"
 
-# Review the script first, edit the JSON, then render
-python -m ytauto make "Best free AI image tools" --script-only
+# Review/edit the script before rendering
+python -m ytauto make "How AI image generators work" --script-only
 python -m ytauto make --script output/<file>.json
 
-# Brainstorm 20 topics, then make all of them
-python -m ytauto ideas -n 20
+# Claude brainstorms 30 topics, then make them all
+python -m ytauto ideas -n 30
 python -m ytauto batch ideas.txt
 ```
 
-Useful options: `--voice en-GB-RyanNeural` (list voices with `edge-tts --list-voices`),
-`--music track.mp3` (royalty-free only, e.g. from the YouTube Audio Library),
-`--handle @yourhandle`, `--out folder`.
+Options: `--voice en-GB-RyanNeural` (see `edge-tts --list-voices`), `--music track.mp3`
+(royalty-free only, e.g. YouTube Audio Library), `--handle @yourchannel`, `--no-sfx`, `--out folder`.
+Set your channel name, handle, niche and voice in `ytauto/config.py`.
 
-Channel name, niche, colours, voice and model live in `ytauto/config.py`.
+**Preview and tweak the design live:** `cd remotion && npm run studio` opens Remotion Studio in your browser.
 
-## Uploading
+## Script format
 
-Upload `video.mp4` in YouTube Studio, paste the title/description/tags from `metadata.json`,
-and upload `captions.srt` under Subtitles. When uploading, set **"Altered or synthetic content"**
-to *Yes* because the voice is AI-generated. YouTube requires this disclosure for realistic AI voices.
+Each scene is `{ "narration": "...", "visual": { "type": "...", "title": "...", ... } }`.
+Wrap one word of a title in `*asterisks*` to give it the gradient highlight. See `examples/` for every type.
 
-Always watch each video before posting. Claude is told not to invent facts, but AI tools change fast,
-so check that tool names, features and prices are still correct.
+## Before uploading
+
+- Watch every video. Check facts: Claude is told not to invent anything, but always verify.
+- In YouTube Studio set **"Altered or synthetic content" → Yes** (AI voice).
+- Paste title/description/tags from `metadata.json` and upload `captions.srt` as subtitles.
+- Remotion is free for individuals and companies of up to 3 people; larger companies need a licence
+  (see remotion.dev/license).
 
 ## Project layout
 
-| File | What it does |
+| Path | What it does |
 |---|---|
 | `ytauto/script_gen.py` | Claude prompt + JSON schema for scripts and topic ideas |
-| `ytauto/tts.py` | edge-tts voiceover, espeak-ng offline fallback |
-| `ytauto/render.py` | draws frames (Pillow) and encodes with ffmpeg; thumbnail |
-| `ytauto/pipeline.py` | ties it together, writes captions + metadata |
-| `ytauto/config.py` | branding, voice, colours, video size |
+| `ytauto/tts.py` | edge-tts voice with word timings, espeak-ng offline fallback |
+| `ytauto/pipeline.py` | runs everything, calls Remotion, writes captions + metadata |
+| `remotion/src/scenes/` | the 8 animated scene layouts |
+| `remotion/src/layers/` | background, captions, transitions, progress bar |
+| `remotion/src/theme.ts` | colours, fonts, animation curves |

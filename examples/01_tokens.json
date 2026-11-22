@@ -1,0 +1,33 @@
+{
+  "title": "AI Doesn't Read Words. Here's What It Reads Instead",
+  "description": "AI models don't read words like you do. They read tokens. Here's what tokens are, how a model uses them, and why it explains some strange AI mistakes. Follow for a new AI lesson every day. #shorts #ai #learnai #claude #tokens",
+  "tags": ["what are tokens", "how ai works", "ai explained", "learn ai", "large language model", "llm explained", "claude ai", "ai for beginners", "tokenization", "shorts"],
+  "thumbnail_text": "AI doesn't read *words*",
+  "thumbnail_icon": "puzzle",
+  "scenes": [
+    {
+      "narration": "AI doesn't read words like you do. It reads something smaller.",
+      "visual": {"type": "hook", "title": "AI doesn't read *words*", "subtitle": "AI in 60 seconds"}
+    },
+    {
+      "narration": "It reads tokens. A token is a small chunk of text. Often a whole word, sometimes just part of one.",
+      "visual": {"type": "concept", "title": "*Tokens*", "subtitle": "Small chunks of text: a word, or part of one", "icon": "puzzle"}
+    },
+    {
+      "narration": "Here's what happens. Your message is split into tokens. Each token becomes a number. Then the model predicts the most likely next token, again and again.",
+      "visual": {"type": "flow", "title": "What happens *inside*", "items": ["Text splits into tokens", "Tokens become numbers", "Predict the next token", "Repeat until done"]}
+    },
+    {
+      "narration": "That's why AI can stumble on tasks like counting letters in a word. It sees chunks, not single letters.",
+      "visual": {"type": "compare", "title": "Why letters *trip* it up", "items": ["You see: s-t-r-a-w-b-e-r-r-y", "AI sees: a few token chunks"]}
+    },
+    {
+      "narration": "Try it yourself. Ask Claude to explain tokens like you're ten.",
+      "visual": {"type": "chat", "title": "Try this prompt", "items": ["Explain tokens like I'm 10", "Imagine cutting a sentence into puzzle pieces. Each piece is a token, and I read them one by one."]}
+    },
+    {
+      "narration": "Follow for a new AI lesson every day.",
+      "visual": {"type": "cta", "title": "Learn AI *daily*", "subtitle": "New lesson every day"}
+    }
+  ]
+}

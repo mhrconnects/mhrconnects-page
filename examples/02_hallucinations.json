@@ -1,0 +1,37 @@
+{
+  "title": "Why AI Makes Things Up (And How to Stop It)",
+  "description": "AI sometimes gives confident answers that aren't true. That's called a hallucination. Here's why it happens and three simple ways to reduce it. Follow for a new AI lesson every day. #shorts #ai #learnai #claude #aihallucination",
+  "tags": ["ai hallucination", "why ai makes things up", "how ai works", "learn ai", "ai explained", "claude ai", "prompting tips", "ai for beginners", "ai accuracy", "shorts"],
+  "thumbnail_text": "Why AI *lies*",
+  "thumbnail_icon": "eye",
+  "scenes": [
+    {
+      "narration": "Why does AI sometimes make things up, with total confidence?",
+      "visual": {"type": "hook", "title": "Why AI *makes things up*", "subtitle": "AI in 60 seconds"}
+    },
+    {
+      "narration": "It's called a hallucination. An answer that sounds right, but isn't true.",
+      "visual": {"type": "concept", "title": "*Hallucination*", "subtitle": "A confident answer that isn't actually true", "icon": "eye"}
+    },
+    {
+      "narration": "A language model predicts likely words. It's built to sound fluent, and it doesn't fact-check itself by default.",
+      "visual": {"type": "flow", "title": "Why it *happens*", "items": ["Predicts likely words", "Trained to sound fluent", "No built-in fact check"]}
+    },
+    {
+      "narration": "You can cut it down. Give it your source, let it say I don't know, and ask for quotes you can check.",
+      "visual": {"type": "list", "title": "How to *reduce* it", "items": ["Give it the source", "Allow \"I don't know\"", "Ask for quotes"]}
+    },
+    {
+      "narration": "For example, tell Claude: answer only from this document, and say if the answer isn't there.",
+      "visual": {"type": "chat", "title": "Try this prompt", "items": ["Answer only from this document. Say if it's not there.", "Got it. I'll only use the document, and I'll tell you if the answer isn't in it."]}
+    },
+    {
+      "narration": "And always double-check anything important, like health, money, or legal facts.",
+      "visual": {"type": "compare", "title": "Trust, but *verify*", "items": ["Risky: Copy important facts blindly", "Smart: Check key facts yourself"]}
+    },
+    {
+      "narration": "Follow for a new AI lesson every day.",
+      "visual": {"type": "cta", "title": "Learn AI *daily*", "subtitle": "New lesson every day"}
+    }
+  ]
+}

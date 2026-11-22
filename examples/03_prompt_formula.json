@@ -1,0 +1,33 @@
+{
+  "title": "The 4-Part Prompt That Makes Claude Way More Useful",
+  "description": "Vague prompts get vague answers. Use this simple 4-part formula (context, task, example, format) to get much better results from Claude. Follow for a new AI lesson every day. #shorts #ai #claude #prompting #learnai",
+  "tags": ["prompt engineering", "how to prompt ai", "claude tips", "claude ai", "better prompts", "learn ai", "ai for beginners", "ai productivity", "prompt formula", "shorts"],
+  "thumbnail_text": "The *4-part* prompt",
+  "thumbnail_icon": "magic",
+  "scenes": [
+    {
+      "narration": "Vague prompts get vague answers. One simple formula fixes that.",
+      "visual": {"type": "hook", "title": "Stop prompting *wrong*", "subtitle": "Claude tips"}
+    },
+    {
+      "narration": "Instead of: write a post about fitness. Try: three gym tips for beginners, under a hundred words.",
+      "visual": {"type": "compare", "title": "Vague vs *specific*", "items": ["Vague: Write a post about fitness", "Specific: 3 gym tips for beginners, under 100 words"]}
+    },
+    {
+      "narration": "Use four parts. Give context. Set the task. Show an example. Choose the format.",
+      "visual": {"type": "list", "title": "The *4-part* prompt", "items": ["Context", "Task", "Example", "Format"]}
+    },
+    {
+      "narration": "Context is the secret weapon. Tell Claude who it's for and why. The more it knows, the better it can tailor the answer.",
+      "visual": {"type": "concept", "title": "*Context*", "subtitle": "Who it's for, why you need it, what matters", "icon": "target"}
+    },
+    {
+      "narration": "Here's one put together. I'm a beginner runner. Make a four-week 5K plan as a simple table.",
+      "visual": {"type": "chat", "title": "Try this prompt", "items": ["I'm a beginner runner. Make a 4-week 5K plan as a simple table.", "Here's a gentle 4-week plan: three short runs a week, building time slowly, with rest days in between."]}
+    },
+    {
+      "narration": "Save this, and follow for a new AI lesson every day.",
+      "visual": {"type": "cta", "title": "Save & *follow*", "subtitle": "New lesson every day"}
+    }
+  ]
+}

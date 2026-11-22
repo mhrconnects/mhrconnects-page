@@ -1,0 +1,37 @@
+{
+  "title": "Nobody Programmed AI's Answers. It Learned Them Like This",
+  "description": "AI assistants weren't programmed with answers. They learned. Here's how training works in three simple stages: learning from text, from examples, and from feedback. Follow for a new AI lesson every day. #shorts #ai #learnai #claude #howaiworks",
+  "tags": ["how ai learns", "how is ai trained", "ai training explained", "how ai works", "learn ai", "ai explained simply", "large language model", "claude ai", "ai for beginners", "machine learning", "shorts"],
+  "thumbnail_text": "How AI *learns*",
+  "thumbnail_icon": "brain",
+  "scenes": [
+    {
+      "narration": "Nobody programmed AI with answers. It learned them. Here's how.",
+      "visual": {"type": "hook", "title": "AI wasn't *programmed*", "subtitle": "AI in 60 seconds"}
+    },
+    {
+      "narration": "It starts with training data. A huge amount of text, from books, websites, and more.",
+      "visual": {"type": "concept", "title": "*Training data*", "subtitle": "Huge amounts of text the model learns from", "icon": "book"}
+    },
+    {
+      "narration": "Then it plays a guessing game. Hide the next word. Guess it. Check the answer. Adjust a tiny bit. Repeat, billions of times.",
+      "visual": {"type": "flow", "title": "The *guessing* game", "items": ["Hide the next word", "Make a guess", "Check the answer", "Adjust and repeat"]}
+    },
+    {
+      "narration": "Now it can continue any text. But it isn't a helpful assistant yet.",
+      "visual": {"type": "compare", "title": "Smart, but not *helpful*", "items": ["Raw model: Just continues text", "Assistant: Answers your actual question"]}
+    },
+    {
+      "narration": "So it's trained again. First on examples of good answers. Then with feedback on which answers are better.",
+      "visual": {"type": "list", "title": "3 stages of *training*", "items": ["Learn from text", "Learn from examples", "Learn from feedback"]}
+    },
+    {
+      "narration": "Try it. Ask Claude to explain how it was trained, in three simple steps.",
+      "visual": {"type": "chat", "title": "Try this prompt", "items": ["How were you trained? Explain in 3 simple steps.", "First I learned patterns from lots of text. Then from examples of good answers. Then from feedback on better responses."]}
+    },
+    {
+      "narration": "Follow for a new AI lesson every day.",
+      "visual": {"type": "cta", "title": "Learn AI *daily*", "subtitle": "New lesson every day"}
+    }
+  ]
+}

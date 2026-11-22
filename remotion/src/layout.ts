@@ -11,9 +11,9 @@ export const useLayout = () => {
         stageHeight: 800,
         stageX: 160,
         contentMaxWidth: 1500,
-        contentScale: 0.82,
-        captionTop: 905,
-        captionSize: 54,
+        contentScale: 0.76,
+        captionTop: 935,
+        captionSize: 50,
         captionStroke: 9,
         handleBottom: 30,
       }

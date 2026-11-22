@@ -106,7 +106,7 @@ def make_video(script: dict, out_root: Path, engine: str = "auto", voice: str | 
         print("[2/3] Rendering motion graphics (Remotion)")
         long = script.get("format") == "long"
         _remotion(["render", "src/index.ts", "Long" if long else "Short", str(out_dir / "video.mp4"), f"--props={props_file}",
-                   "--codec=h264", "--crf=18", f"--concurrency={os.cpu_count() or 2}"])
+                   "--codec=h264", "--crf=21", f"--concurrency={os.cpu_count() or 2}"])
 
         print("[3/3] Thumbnail, captions and metadata")
         thumb_props = job_dir / "thumb.json"

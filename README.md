@@ -53,6 +53,21 @@ python -m ytauto ideas -n 30
 python -m ytauto batch ideas.txt
 ```
 
+### Long-form tutorials (5-7 min, 16:9)
+
+```bash
+# Ready-made "Claude Basics" tutorial
+python -m ytauto make --script examples/long_01_claude_basics.json
+
+# Claude writes a new long tutorial
+python -m ytauto make "How to use Claude for studying" --long
+```
+
+Long videos add two scene types: `app` (a Claude-style chat window: a cursor clicks buttons, prompts type out,
+answers stream in, files get attached) and `section` (chapter title cards). Scenes with a `"chapter"` name
+become YouTube chapters in `metadata.json`'s description. The app window is a stylised recreation with no logos;
+mixing in real screen recordings of claude.ai makes tutorials feel even more authentic.
+
 Options: `--voice en-GB-RyanNeural` (see `edge-tts --list-voices`), `--music track.mp3`
 (royalty-free only, e.g. YouTube Audio Library), `--handle @yourchannel`, `--no-sfx`, `--out folder`.
 Set your channel name, handle, niche and voice in `ytauto/config.py`.

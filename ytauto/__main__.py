@@ -24,7 +24,7 @@ def main() -> int:
                        help="auto = natural edge-tts voice, falling back to offline espeak-ng")
         p.add_argument("--voice", help=f"voice name (default {config.EDGE_VOICE})")
         p.add_argument("--music", type=Path, help="optional background music file (use royalty-free tracks)")
-        p.add_argument("--handle", default=config.CHANNEL_HANDLE, help="channel handle shown on screen")
+        p.add_argument("--handle", default=config.CHANNEL_HANDLE, help="channel handle shown on screen (default: config.CHANNEL_HANDLE, empty = none)")
 
     m = sub.add_parser("make", help="make one video")
     m.add_argument("topic", nargs="?", help="what the video is about")

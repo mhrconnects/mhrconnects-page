@@ -1,9 +1,11 @@
 """Default settings for the faceless video pipeline. Override most of them from the CLI."""
 
-# Channel branding
-CHANNEL_NAME = "MHR Connects"
-CHANNEL_HANDLE = "@mhrconnects"
-NICHE = "Tech & AI tips: practical AI tools, productivity hacks, and tech explained simply"
+# Channel branding. Fill these in once you've created your channel.
+# Leave CHANNEL_HANDLE empty ("") to show no watermark on videos.
+CHANNEL_NAME = ""          # e.g. "AI Money Moves"
+CHANNEL_HANDLE = ""        # e.g. "@aimoneymoves"
+NICHE = ("Using AI to make money and save time: AI side hustles, freelancing with AI, "
+         "AI tools for small business, and practical AI productivity tips")
 
 # Claude model used to write scripts
 MODEL = "claude-opus-5-5"

@@ -1,6 +1,7 @@
-# mhrconnects-page — YouTube Shorts automation
+# Faceless YouTube Shorts automation
 
-A faceless video pipeline for the **MHR Connects** Tech & AI tips channel.
+A faceless video pipeline for an "AI to make money" channel: AI side hustles, freelancing with AI,
+AI tools for small business. Set your channel name and handle in `ytauto/config.py`.
 
 ```
 topic ──► Claude writes script ──► AI voiceover ──► animated 1080×1920 video ──► video.mp4
@@ -10,7 +11,7 @@ topic ──► Claude writes script ──► AI voiceover ──► animated 1
 ```
 
 Each video: a hook, 4–6 tip scenes, a call to action, word-by-word pop-up captions, a progress bar,
-a slow background drift, and your `@handle` watermark. A 40-second Short renders in about 20 seconds.
+a slow background drift, and your `@handle` watermark (optional). A 40-second Short renders in about 20 seconds.
 
 ## Setup (once)
 

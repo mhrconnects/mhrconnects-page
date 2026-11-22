@@ -1,1 +1,1 @@
-"""Faceless YouTube Shorts automation for MHR Connects."""
+"""Faceless YouTube Shorts automation."""

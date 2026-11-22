@@ -53,13 +53,15 @@ IDEAS_SCHEMA = {
 
 
 def _system_prompt(channel: str, niche: str) -> str:
-    return f"""You write scripts for "{channel}", a faceless YouTube Shorts channel. Niche: {niche}.
+    name = f'"{channel}", ' if channel else ""
+    return f"""You write scripts for {name}a faceless YouTube Shorts channel. Niche: {niche}.
 
 The viewer hears a voiceover over animated text slides; there is no presenter on camera.
 Write for the ear: short sentences, plain words, one idea per scene, no filler like "In this video".
 The first scene must hook within 2 seconds with a bold claim, a surprising fact, or a question.
 Give concrete, accurate, actionable details (real tool names, real steps). Never invent features,
 prices, or statistics; if you are unsure something is current, describe it generally instead.
+Never promise specific earnings or "get rich quick" results; say what the work involves.
 Total narration should be 110-150 words so the Short lands at 40-58 seconds.
 End with a one-line call to action asking viewers to follow for more tips."""
 

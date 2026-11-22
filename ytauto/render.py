@@ -205,7 +205,8 @@ def draw_frame(t: float, total: float, layer: SceneLayers, handle: str, handle_i
     d.rectangle([0, 0, W, 14], fill=(0, 0, 0, 160))
     d.rectangle([0, 0, int(W * t / total), 14], fill=layer.accent + (255,))
     # channel handle watermark
-    frame.alpha_composite(handle_img, ((W - handle_img.width) // 2, H - 260))
+    if handle_img:
+        frame.alpha_composite(handle_img, ((W - handle_img.width) // 2, H - 260))
     return frame.convert("RGB")
 
 
@@ -214,7 +215,7 @@ def render_video(scenes: list[dict], durations: list[float], audio_wav: Path, ou
     W, H, FPS = config.WIDTH, config.HEIGHT, config.FPS
     layers = build_layers(scenes, durations)
     total = sum(durations)
-    handle_img = text_block([handle], font(46), (255, 255, 255, 200), stroke=3)
+    handle_img = text_block([handle], font(46), (255, 255, 255, 200), stroke=3) if handle else None
 
     cmd = ["ffmpeg", "-y", "-loglevel", "error",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
@@ -259,6 +260,7 @@ def render_thumbnail(text: str, out_png: Path, handle: str = config.CHANNEL_HAND
     img.alpha_composite(block, ((W - block.width) // 2, (H - block.height) // 2))
     d = ImageDraw.Draw(img)
     d.rectangle([0, H - 18, W, H], fill=accent + (255,))
-    tag = text_block([handle], font(40), (255, 255, 255), stroke=3)
-    img.alpha_composite(tag, (W - tag.width - 30, 24))
+    if handle:
+        tag = text_block([handle], font(40), (255, 255, 255), stroke=3)
+        img.alpha_composite(tag, (W - tag.width - 30, 24))
     img.convert("RGB").save(out_png)

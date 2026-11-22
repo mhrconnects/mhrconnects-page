@@ -1,6 +1,7 @@
 """Text-to-speech: edge-tts (free, natural voices, needs internet) with an offline espeak-ng fallback."""
 
 import asyncio
+import os
 import shutil
 import subprocess
 import wave
@@ -22,8 +23,11 @@ def _to_wav(src: Path, dst: Path, pad_seconds: float) -> None:
 def _edge(text: str, out_mp3: Path, voice: str, rate: str) -> None:
     import edge_tts
 
+    # edge-tts doesn't read proxy environment variables itself; pass one through if set
+    proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy") or None
+
     async def run():
-        await edge_tts.Communicate(text, voice, rate=rate).save(str(out_mp3))
+        await edge_tts.Communicate(text, voice, rate=rate, proxy=proxy).save(str(out_mp3))
 
     asyncio.run(run())
     if not out_mp3.exists() or out_mp3.stat().st_size == 0:

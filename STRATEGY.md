@@ -12,8 +12,8 @@
 |---|---|---|
 | Concept | Faceless channel teaching AI and Claude to complete beginners | ✅ Decided |
 | Positioning | "The easiest place to learn Claude and AI from zero" | ✅ Decided |
-| Name | **Learn AI Simply** (recommended). Backups: AI Made Simple · Prompt School · The AI Classroom · Simply AI | ⏳ Owner choosing |
-| Handle (same on all platforms) | `@learnaisimply` → backups `@learnaisimplyhq`, `@learnai.simply` | ⏳ Owner checking availability |
+| Name | **The AI Classroom** | ✅ Chosen 2026-11-23 |
+| Handle (same on all platforms) | `@theai_classroom` | ✅ TikTok · ⏳ IG + YouTube |
 | Old branding to remove | "Learn AI with MHR", `@learnwithmhr`, any "MHR" logo | ⏳ To change on YouTube + descriptions |
 | Profile picture | Minimal flat style (owner disliked busy/glowing). Strategist pick: light off-white style, **without "MHR"** | ⏳ Remake once name is final |
 | Voice | Free natural voice (edge-tts, en-US-AndrewNeural); one voice per video, never mixed | ✅ |
@@ -141,6 +141,7 @@ Not affiliated with Anthropic or any AI company. All tools shown are used for ed
 | 2026-11-23 | Expand to TikTok + Instagram Reels using the same vertical clips |
 | 2026-11-23 | Brand must be anonymous, so drop "MHR" from name, handle, logo and descriptions |
 | 2026-11-23 | Reuse the existing small TikTok money account if it isn't traceable (make old posts private) |
+| 2026-11-23 | Brand name: The AI Classroom, handle @theai_classroom |
 
 ## 9. Open items
 - [ ] Owner: choose name + check handle availability

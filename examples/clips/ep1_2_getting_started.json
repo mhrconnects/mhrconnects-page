@@ -1,0 +1,87 @@
+{
+  "title": "How to Start Using Claude (Beginner Setup)",
+  "description": "How to sign up for Claude and find your way around the main screen. Follow for a new AI lesson every day. Not affiliated with Anthropic. #ai #claude #learnai #aitips #shorts",
+  "tags": [
+    "claude ai",
+    "learn ai",
+    "ai tips",
+    "claude tutorial",
+    "ai for beginners",
+    "shorts"
+  ],
+  "thumbnail_text": "Start using *Claude*",
+  "thumbnail_icon": "learn",
+  "scenes": [
+    {
+      "narration": "Never used Claude? Here's how to get started in two minutes.",
+      "visual": {
+        "type": "hook",
+        "title": "Start using *Claude*",
+        "subtitle": "Claude basics"
+      }
+    },
+    {
+      "narration": "Go to claude dot ai in your browser, or download the Claude app for your phone or computer. Sign up with your email or a Google account, and you're in.",
+      "visual": {
+        "type": "flow",
+        "title": "Get *set up*",
+        "items": [
+          "Visit claude.ai or get the app",
+          "Sign up with email or Google",
+          "Start chatting"
+        ]
+      }
+    },
+    {
+      "narration": "You can start for free. Paid plans give you more usage and extra features. So start free, and upgrade only if you need more.",
+      "visual": {
+        "type": "compare",
+        "title": "Free vs *paid*",
+        "items": [
+          "Free: Great for getting started",
+          "Paid: More usage and extra features"
+        ]
+      }
+    },
+    {
+      "narration": "This is the main screen. On the left is your sidebar. New chat starts a fresh conversation, any time you want a clean slate.",
+      "visual": {
+        "type": "app",
+        "title": "The main screen",
+        "highlight": "new_chat"
+      }
+    },
+    {
+      "narration": "Below that are your past chats, and your projects, which keep related chats together.",
+      "visual": {
+        "type": "app",
+        "title": "Chats & projects",
+        "highlight": "projects"
+      }
+    },
+    {
+      "narration": "At the bottom is the message box. This is where you type. The button on the left lets you add files.",
+      "visual": {
+        "type": "app",
+        "title": "The message box",
+        "highlight": "input"
+      }
+    },
+    {
+      "narration": "And the model menu lets you choose between different versions of Claude, depending on your plan. Some are faster, some are more powerful. The default is a great place to start.",
+      "visual": {
+        "type": "app",
+        "title": "Pick a model",
+        "highlight": "model"
+      }
+    },
+    {
+      "narration": "Follow for a new AI lesson every day.",
+      "visual": {
+        "type": "cta",
+        "title": "Follow for *more*",
+        "subtitle": "Daily AI lessons"
+      }
+    }
+  ]
+}

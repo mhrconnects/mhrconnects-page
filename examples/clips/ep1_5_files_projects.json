@@ -1,0 +1,84 @@
+{
+  "title": "Claude Can Read Your Files (Here's How)",
+  "description": "Upload PDFs, notes or images to Claude, and use Projects to keep everything organised. Follow for a new AI lesson every day. Not affiliated with Anthropic. #ai #claude #learnai #aitips #shorts",
+  "tags": [
+    "claude ai",
+    "learn ai",
+    "ai tips",
+    "claude tutorial",
+    "ai for beginners",
+    "shorts"
+  ],
+  "thumbnail_text": "Claude reads your *files*",
+  "thumbnail_icon": "learn",
+  "scenes": [
+    {
+      "narration": "Did you know Claude can read your files? Here's how.",
+      "visual": {
+        "type": "hook",
+        "title": "Claude reads your *files*",
+        "subtitle": "Claude basics"
+      }
+    },
+    {
+      "narration": "Click the attach button, upload a PDF, a document or an image, and ask about it. Like: summarize this report in five bullet points.",
+      "visual": {
+        "type": "app",
+        "title": "Upload a file",
+        "subtitle": "report.pdf",
+        "highlight": "attach",
+        "items": [
+          "Summarize this report in 5 bullet points",
+          "Here are the five key points: sales grew in every region, costs rose slightly, online orders doubled, two new stores opened, and the team plans to expand next year."
+        ]
+      }
+    },
+    {
+      "narration": "This is great for long reports, lecture notes, contracts you want explained in plain English, or even a photo of a chart.",
+      "visual": {
+        "type": "list",
+        "title": "Try it *with*",
+        "items": [
+          "Long reports",
+          "Lecture notes",
+          "Contracts, explained",
+          "Charts & photos"
+        ]
+      }
+    },
+    {
+      "narration": "Projects keep related chats in one place. Depending on your plan, you can add files and instructions that Claude uses in every chat inside that project.",
+      "visual": {
+        "type": "app",
+        "title": "Projects",
+        "highlight": "projects"
+      }
+    },
+    {
+      "narration": "For example, make a project for a class, add your notes, and every chat inside it already knows the material.",
+      "visual": {
+        "type": "concept",
+        "title": "*Projects*",
+        "subtitle": "Shared files and instructions for related chats",
+        "icon": "layers"
+      }
+    },
+    {
+      "narration": "And when you ask for something bigger, like a document, some code, or a simple app, Claude can show it in its own panel next to the chat, so it's easy to view and copy.",
+      "visual": {
+        "type": "concept",
+        "title": "*Artifacts*",
+        "subtitle": "Bigger outputs in their own panel",
+        "icon": "doc"
+      }
+    },
+    {
+      "narration": "Follow for a new AI lesson every day.",
+      "visual": {
+        "type": "cta",
+        "title": "Follow for *more*",
+        "subtitle": "Daily AI lessons"
+      }
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "title": "Don't Trust AI Until You Know This",
+  "description": "Smart habits for using Claude safely: check important facts and protect your personal info. Follow for a new AI lesson every day. Not affiliated with Anthropic. #ai #claude #learnai #aitips #shorts",
+  "tags": [
+    "claude ai",
+    "learn ai",
+    "ai tips",
+    "claude tutorial",
+    "ai for beginners",
+    "shorts"
+  ],
+  "thumbnail_text": "Use AI *wisely*",
+  "thumbnail_icon": "learn",
+  "scenes": [
+    {
+      "narration": "Before you trust AI with anything important, watch this.",
+      "visual": {
+        "type": "hook",
+        "title": "Use AI *wisely*",
+        "subtitle": "Claude basics"
+      }
+    },
+    {
+      "narration": "Claude is very capable, but it can still make mistakes. For anything important, like health, money, or legal questions, double-check with a trusted source.",
+      "visual": {
+        "type": "compare",
+        "title": "Trust, but *verify*",
+        "items": [
+          "Risky: Trust every answer blindly",
+          "Smart: Double-check important facts"
+        ]
+      }
+    },
+    {
+      "narration": "Never share passwords or sensitive personal details. And remember, Claude is a tool to help you think, not to think for you.",
+      "visual": {
+        "type": "list",
+        "title": "Golden *rules*",
+        "items": [
+          "Check important facts",
+          "Never share passwords",
+          "Keep your own judgment"
+        ]
+      }
+    },
+    {
+      "narration": "Features change often. So if something looks a little different on your screen, check claude dot ai for the latest.",
+      "visual": {
+        "type": "concept",
+        "title": "Things *change*",
+        "subtitle": "Check claude.ai for the latest features",
+        "icon": "time"
+      }
+    },
+    {
+      "narration": "Follow for a new AI lesson every day.",
+      "visual": {
+        "type": "cta",
+        "title": "Follow for *more*",
+        "subtitle": "Daily AI lessons"
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "title": "Write Better Prompts in 30 Seconds",
+  "description": "The 4-part prompt formula (context, task, example, format) plus one pro tip that changes every answer. Follow for a new AI lesson every day. Not affiliated with Anthropic. #ai #claude #learnai #aitips #shorts",
+  "tags": [
+    "claude ai",
+    "learn ai",
+    "ai tips",
+    "claude tutorial",
+    "ai for beginners",
+    "shorts"
+  ],
+  "thumbnail_text": "Better *prompts*",
+  "thumbnail_icon": "learn",
+  "scenes": [
+    {
+      "narration": "Vague prompts get vague answers. Here's how to fix that.",
+      "visual": {
+        "type": "hook",
+        "title": "Better *prompts*",
+        "subtitle": "Claude basics"
+      }
+    },
+    {
+      "narration": "Vague questions get vague answers. Compare: write a workout plan. With: I'm a beginner with twenty minutes a day and no equipment, make me a one-week plan as a table.",
+      "visual": {
+        "type": "compare",
+        "title": "Vague vs *specific*",
+        "items": [
+          "Vague: Write a workout plan",
+          "Specific: Beginner, 20 min a day, no equipment, as a table"
+        ]
+      }
+    },
+    {
+      "narration": "Use four parts. Context: who you are and why. Task: what you want. Example: what good looks like. And format: a list, a table, or an email.",
+      "visual": {
+        "type": "flow",
+        "title": "The *4-part* prompt",
+        "items": [
+          "Context",
+          "Task",
+          "Example",
+          "Format"
+        ]
+      }
+    },
+    {
+      "narration": "Here's that in action. I run a small bakery. Write three friendly Instagram captions for our new cinnamon rolls, under twenty words each.",
+      "visual": {
+        "type": "app",
+        "title": "Prompt in action",
+        "items": [
+          "I run a small bakery. Write 3 friendly Instagram captions for our new cinnamon rolls, under 20 words each.",
+          "1. Fresh cinnamon rolls just landed, and they won't last long. 2. Warm, gooey, and worth every crumb. 3. Your morning coffee just found its best friend."
+        ]
+      }
+    },
+    {
+      "narration": "One more pro tip. Tell Claude who to be. For example: act as a patient math tutor. It changes the style of every answer.",
+      "visual": {
+        "type": "concept",
+        "title": "Give it a *role*",
+        "subtitle": "\"Act as a patient math tutor\"",
+        "icon": "learn"
+      }
+    },
+    {
+      "narration": "Follow for a new AI lesson every day.",
+      "visual": {
+        "type": "cta",
+        "title": "Follow for *more*",
+        "subtitle": "Daily AI lessons"
+      }
+    }
+  ]
+}

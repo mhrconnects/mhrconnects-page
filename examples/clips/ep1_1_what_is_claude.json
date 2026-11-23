@@ -1,0 +1,65 @@
+{
+  "title": "What Is Claude? AI Explained in 60 Seconds",
+  "description": "Claude explained for complete beginners: what it is, who makes it, and what it can help you with. Follow for a new AI lesson every day. Not affiliated with Anthropic. #ai #claude #learnai #aitips #shorts",
+  "tags": [
+    "claude ai",
+    "learn ai",
+    "ai tips",
+    "claude tutorial",
+    "ai for beginners",
+    "shorts"
+  ],
+  "thumbnail_text": "What is *Claude*?",
+  "thumbnail_icon": "learn",
+  "scenes": [
+    {
+      "narration": "Everyone's talking about Claude. Here's what it actually is, in under a minute.",
+      "visual": {
+        "type": "hook",
+        "title": "What is *Claude*?",
+        "subtitle": "Claude basics"
+      }
+    },
+    {
+      "narration": "Claude is an AI assistant made by a company called Anthropic. You talk to it in plain language, a bit like texting a really smart friend, and it answers.",
+      "visual": {
+        "type": "concept",
+        "title": "*Claude*",
+        "subtitle": "An AI assistant made by Anthropic",
+        "icon": "chat"
+      }
+    },
+    {
+      "narration": "You can use it to write and edit, explain difficult topics, brainstorm ideas, analyze documents, help with code, and plan just about anything.",
+      "visual": {
+        "type": "list",
+        "title": "What it *helps* with",
+        "items": [
+          "Write & edit",
+          "Explain anything",
+          "Brainstorm ideas",
+          "Analyze documents"
+        ]
+      }
+    },
+    {
+      "narration": "Think of it less like a search engine, and more like a collaborator. Instead of a list of links, you get an answer you can shape together.",
+      "visual": {
+        "type": "compare",
+        "title": "Not just *search*",
+        "items": [
+          "Search engine: A list of links",
+          "Claude: An answer you shape together"
+        ]
+      }
+    },
+    {
+      "narration": "Follow for a new AI lesson every day.",
+      "visual": {
+        "type": "cta",
+        "title": "Follow for *more*",
+        "subtitle": "Daily AI lessons"
+      }
+    }
+  ]
+}

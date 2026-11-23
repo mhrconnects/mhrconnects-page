@@ -1,0 +1,75 @@
+{
+  "title": "The Secret to Your First Claude Chat",
+  "description": "How to have your first conversation with Claude, and the follow-up trick most beginners miss. Follow for a new AI lesson every day. Not affiliated with Anthropic. #ai #claude #learnai #aitips #shorts",
+  "tags": [
+    "claude ai",
+    "learn ai",
+    "ai tips",
+    "claude tutorial",
+    "ai for beginners",
+    "shorts"
+  ],
+  "thumbnail_text": "Your first *chat*",
+  "thumbnail_icon": "learn",
+  "scenes": [
+    {
+      "narration": "Most people use AI wrong in their very first chat. Here's the secret.",
+      "visual": {
+        "type": "hook",
+        "title": "Your first *chat*",
+        "subtitle": "Claude basics"
+      }
+    },
+    {
+      "narration": "Type a question, just like you'd ask a person. Let's try: explain compound interest like I'm twelve.",
+      "visual": {
+        "type": "app",
+        "title": "Ask anything",
+        "items": [
+          "Explain compound interest like I'm 12",
+          "Imagine you plant one apple tree. Every year it grows apples, and some of those apples grow into new trees. Your money works the same way: it earns money, and that money earns even more."
+        ]
+      }
+    },
+    {
+      "narration": "Here's the secret most beginners miss. It's a conversation. You don't have to get it perfect the first time. Just keep talking.",
+      "visual": {
+        "type": "concept",
+        "title": "*Follow-ups*",
+        "subtitle": "Keep the conversation going",
+        "icon": "chat"
+      }
+    },
+    {
+      "narration": "Ask it to make the answer shorter, add an example, or change the tone. Claude remembers what you said earlier in the same chat.",
+      "visual": {
+        "type": "app",
+        "title": "Keep refining",
+        "items": [
+          "Now show me a real example with $100",
+          "Sure. Save $100 at 5% a year and after one year you have $105. The next year you earn 5% on $105, so you have $110.25, and it keeps growing."
+        ]
+      }
+    },
+    {
+      "narration": "And if an answer misses the mark, you can edit your message, ask Claude to try again, or simply add more detail.",
+      "visual": {
+        "type": "list",
+        "title": "If it *misses*",
+        "items": [
+          "Edit your message",
+          "Ask it to try again",
+          "Add more detail"
+        ]
+      }
+    },
+    {
+      "narration": "Follow for a new AI lesson every day.",
+      "visual": {
+        "type": "cta",
+        "title": "Follow for *more*",
+        "subtitle": "Daily AI lessons"
+      }
+    }
+  ]
+}

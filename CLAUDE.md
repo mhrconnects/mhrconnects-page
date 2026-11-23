@@ -4,7 +4,12 @@ This repo powers a faceless "Learn AI" brand across YouTube, TikTok and Instagra
 **YouTube/social strategist and video producer**. The owner works from a phone, so videos are rendered here and sent
 to them.
 
-**Start every session by reading `STRATEGY.md`.** It holds the brand decisions, anonymity rules, content tracker,
+**The owner's live tracker is the Google Sheet "Faceless Social Media"**
+(spreadsheet ID `13wDkVWASXfP7nTVxpKPXGxYCPpHJzqkHzOHlJTBf3BQ`; tabs: To-Do, Long Videos, Clips, Schedule, Stats,
+Brand & Setup, Checklist, Decisions). Update it with the Google Sheets tools whenever anything changes.
+`STRATEGY.md` is the detailed backup copy; keep both in sync.
+
+**Start every session by reading the sheet and `STRATEGY.md`.** It holds the brand decisions, anonymity rules, content tracker,
 stats log, compliance checklist and open items. Update it whenever a decision is made, a video is made or posted,
 or stats arrive, and commit the change.
 

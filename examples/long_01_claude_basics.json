@@ -1,6 +1,6 @@
 {
   "format": "long",
-  "title": "Claude for Beginners: The Complete Basics in 6 Minutes",
+  "title": "Claude for Beginners: The Complete Basics in 5 Minutes",
   "description": "New to Claude? This beginner guide walks you through everything: what Claude is, how to get started, your first chat, how to write better prompts, working with files and projects, and how to use it wisely. Features change over time, so check claude.ai for the latest. Not affiliated with Anthropic.\n\n#claude #ai #learnai #claudeai #aitutorial",
   "tags": ["claude ai", "claude tutorial", "how to use claude", "claude for beginners", "anthropic claude", "claude basics", "ai assistant", "learn ai", "prompt engineering", "ai tutorial", "claude tips"],
   "thumbnail_text": "Claude *basics*",
@@ -8,7 +8,7 @@
   "scenes": [
     {
       "chapter": "Intro",
-      "narration": "Claude is one of the most capable AI assistants out there. In the next six minutes, you'll go from never using it, to using it with confidence.",
+      "narration": "Claude is one of the most capable AI assistants out there. In the next five minutes, you'll go from never using it, to using it with confidence.",
       "visual": {"type": "hook", "title": "Claude *basics*", "subtitle": "Complete beginner guide"}
     },
     {

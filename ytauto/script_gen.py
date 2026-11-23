@@ -106,7 +106,8 @@ Structure: a 15-second hook that promises a clear outcome, then 4-6 chapters, th
 to subscribe for the next lesson. Teach step by step for complete beginners. Use concrete, realistic example prompts.
 Accuracy matters most: describe only Claude features you are confident exist, in general terms (e.g. "depending on your plan").
 Never state prices, usage limits or release dates. Tell viewers that features change and to check claude.ai.
-Total narration: 800-950 words.
+Total narration: 800-950 words. Don't state the video's length in the narration or title
+(the final length depends on the voice), except as "a few minutes".
 
 {LONG_VISUAL_GUIDE}"""
 

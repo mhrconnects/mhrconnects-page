@@ -1,5 +1,6 @@
 import { Composition, Still } from "remotion";
 import { Short, calculateShortMetadata } from "./Short";
+import { Avatar } from "./Avatar";
 import { Thumbnail } from "./Thumbnail";
 import type { ShortProps } from "./types";
 
@@ -61,5 +62,6 @@ export const RemotionRoot: React.FC = () => (
       height={720}
       defaultProps={{ title: "How AI *actually* reads", icon: "brain" }}
     />
+    <Still id="Avatar" component={Avatar} width={800} height={800} defaultProps={{ variant: "monogram" as const, text: "MHR", icon: "brain" }} />
   </>
 );

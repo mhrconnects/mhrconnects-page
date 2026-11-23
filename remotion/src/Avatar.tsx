@@ -1,11 +1,43 @@
 import { AbsoluteFill } from "remotion";
 import { Icon } from "./icons";
-import { ACCENTS, SANS } from "./theme";
+import { ACCENTS, DISPLAY, SANS } from "./theme";
 
-export type AvatarProps = { variant: "monogram" | "icon" | "ai"; text?: string; icon?: string };
+export type AvatarProps = {
+  variant: "monogram" | "icon" | "ai" | "minimal";
+  text?: string;
+  icon?: string;
+  bg?: string;
+  fg?: string;
+  accent?: string;
+  font?: "sans" | "grotesk";
+  lower?: boolean;
+};
+
+/** Minimal flat monogram: one or two colours, lots of space, tiny accent dot. */
+const Minimal: React.FC<AvatarProps> = ({ text = "MHR", bg = "#111113", fg = "#F5F3EE", accent = "#00D4FF", font = "sans", lower }) => (
+  <AbsoluteFill style={{ background: bg, alignItems: "center", justifyContent: "center" }}>
+    <div style={{ display: "flex", alignItems: "baseline" }}>
+      <span
+        style={{
+          fontFamily: font === "grotesk" ? DISPLAY : SANS,
+          fontWeight: font === "grotesk" ? 700 : 900,
+          fontSize: lower ? 250 : 210,
+          letterSpacing: lower ? -14 : -12,
+          color: fg,
+          lineHeight: 1,
+        }}
+      >
+        {lower ? text.toLowerCase() : text}
+      </span>
+      <span style={{ width: 44, height: 44, borderRadius: 22, background: accent, marginLeft: 10 }} />
+    </div>
+  </AbsoluteFill>
+);
 
 /** Channel profile picture (800x800). Everything important stays inside the centre circle. */
-export const Avatar: React.FC<AvatarProps> = ({ variant, text = "MHR", icon = "brain" }) => {
+export const Avatar: React.FC<AvatarProps> = (props) => {
+  const { variant, text = "MHR", icon = "brain" } = props;
+  if (variant === "minimal") return <Minimal {...props} />;
   const a = ACCENTS[0];
   const b = ACCENTS[1];
   return (

@@ -2,139 +2,375 @@
   "format": "long",
   "title": "7 Power Prompts to Get Better Answers From Claude",
   "description": "Same AI, very different answers. The difference is how you ask. In this lesson you'll learn 7 simple power prompts that get clearer, more useful answers from Claude, with real examples you can copy: explain it at your level, give it a role, let it ask you questions, show an example, set the format, go step by step, and critique and improve.\n\nFeatures change over time, so check claude.ai for the latest.\n\n🔔 Subscribe to Learn AI with MHR for new AI lessons every day.\n\nNot affiliated with Anthropic.\n\n#claude #ai #prompts #learnai #claudeai",
-  "tags": ["claude prompts", "power prompts", "prompt engineering", "how to prompt claude", "claude tips", "claude ai", "better ai answers", "ai prompts for beginners", "learn ai", "ai tutorial", "prompt tips"],
+  "tags": [
+    "claude prompts",
+    "power prompts",
+    "prompt engineering",
+    "how to prompt claude",
+    "claude tips",
+    "claude ai",
+    "better ai answers",
+    "ai prompts for beginners",
+    "learn ai",
+    "ai tutorial",
+    "prompt tips"
+  ],
   "thumbnail_text": "7 *power* prompts",
   "thumbnail_icon": "magic",
   "scenes": [
     {
       "chapter": "Intro",
       "narration": "Same AI. Same question. Completely different answers. The difference? How you ask.",
-      "visual": {"type": "hook", "title": "Same AI, *better* answers", "subtitle": "Lesson 2: Power prompts"}
+      "visual": {
+        "type": "hook",
+        "title": "Same AI, *better* answers",
+        "subtitle": "Lesson 2: Power prompts"
+      }
     },
     {
       "narration": "In this lesson, you'll learn seven power prompts that get clearer, more useful answers from Claude. Every one comes with an example you can copy.",
-      "visual": {"type": "stat", "title": "Power prompts", "number": "7", "subtitle": "with examples you can copy"}
+      "visual": {
+        "type": "stat",
+        "title": "Power prompts",
+        "number": "7",
+        "subtitle": "with examples you can copy"
+      }
     },
     {
-      "narration": "Most people type a few words and hope for the best. Power users tell Claude exactly what they need.",
-      "visual": {"type": "compare", "title": "Guessing vs *guiding*", "items": ["Most people: A few words and hope", "Power users: Clear, specific instructions"]}
+      "narration": "Most people type a few words, hope for the best, and then wonder why the answer feels generic. Power users tell Claude exactly what they need.",
+      "visual": {
+        "type": "compare",
+        "title": "Guessing vs *guiding*",
+        "items": [
+          "Most people: A few words and hope",
+          "Power users: Clear, specific instructions"
+        ]
+      }
+    },
+    {
+      "narration": "Think of Claude like a brilliant new assistant on their first day. They're smart, but they don't know you yet. The more you tell them, the better they do.",
+      "visual": {
+        "type": "concept",
+        "title": "*Context* is everything",
+        "subtitle": "The more Claude knows, the better it helps",
+        "icon": "idea"
+      }
     },
     {
       "chapter": "1. Explain at your level",
       "narration": "Power prompt number one. Explain it at my level.",
-      "visual": {"type": "section", "number": "01", "title": "Explain at my level", "subtitle": "Match the answer to you"}
+      "visual": {
+        "type": "section",
+        "number": "01",
+        "title": "Explain at my level",
+        "subtitle": "Match the answer to you"
+      }
     },
     {
       "narration": "Claude can explain anything, from beginner to expert. So tell it your level. Like: explain how the stock market works like I'm a complete beginner.",
-      "visual": {"type": "app", "title": "Set your level", "items": ["Explain how the stock market works like I'm a complete beginner.", "Think of a company as a pizza cut into slices. Each slice is a share. When you buy a share, you own a tiny piece of the company, and its value goes up or down with how the company does."]}
+      "visual": {
+        "type": "app",
+        "title": "Set your level",
+        "items": [
+          "Explain how the stock market works like I'm a complete beginner.",
+          "Think of a company as a pizza cut into slices. Each slice is a share. When you buy a share, you own a tiny piece of the company, and its value goes up or down with how the company does."
+        ]
+      }
     },
     {
-      "narration": "You can say like I'm ten, like I'm a beginner, or like I'm an expert. Same topic, totally different depth.",
-      "visual": {"type": "list", "title": "Pick your *level*", "items": ["Like I'm 10", "Like a beginner", "Like an expert"]}
+      "narration": "You can say like I'm ten, like I'm a beginner, or like I'm an expert. Same topic, totally different depth. And if an answer is still too complicated, just reply: simpler please. Claude will rewrite it.",
+      "visual": {
+        "type": "list",
+        "title": "Pick your *level*",
+        "items": [
+          "Like I'm 10",
+          "Like a beginner",
+          "Like an expert"
+        ]
+      }
     },
     {
       "chapter": "2. Give it a role",
       "narration": "Power prompt number two. Give it a role.",
-      "visual": {"type": "section", "number": "02", "title": "Give it a role", "subtitle": "Who should Claude be?"}
+      "visual": {
+        "type": "section",
+        "number": "02",
+        "title": "Give it a role",
+        "subtitle": "Who should Claude be?"
+      }
     },
     {
-      "narration": "Tell Claude who to be, and it changes the style and focus of the answer. For example: act as a friendly career coach and review my plan to switch jobs.",
-      "visual": {"type": "app", "title": "Assign a role", "items": ["Act as a friendly career coach. I want to switch from retail to marketing. Where do I start?", "Great goal! Start with your strengths: retail teaches you how customers think. Next, take a free intro marketing course, then build two small sample projects to show employers."]}
+      "narration": "Tell Claude who to be, and it changes the style and focus of the answer. For example: act as a friendly career coach and review my plan to switch jobs. Without a role, you get a general answer. With one, you get advice that fits the situation.",
+      "visual": {
+        "type": "app",
+        "title": "Assign a role",
+        "items": [
+          "Act as a friendly career coach. I want to switch from retail to marketing. Where do I start?",
+          "Great goal! Start with your strengths: retail teaches you how customers think. Next, take a free intro marketing course, then build two small sample projects to show employers."
+        ]
+      }
     },
     {
       "narration": "Try a patient tutor, a strict editor, a personal trainer, or a travel planner. The role tells Claude what kind of help you want.",
-      "visual": {"type": "list", "title": "Roles to *try*", "items": ["Patient tutor", "Strict editor", "Personal trainer", "Travel planner"]}
+      "visual": {
+        "type": "list",
+        "title": "Roles to *try*",
+        "items": [
+          "Patient tutor",
+          "Strict editor",
+          "Personal trainer",
+          "Travel planner"
+        ]
+      }
     },
     {
       "chapter": "3. Let it ask you",
       "narration": "Power prompt number three. This one is a game changer. Let Claude ask you questions first.",
-      "visual": {"type": "section", "number": "03", "title": "Let it ask you", "subtitle": "The game changer"}
+      "visual": {
+        "type": "section",
+        "number": "03",
+        "title": "Let it ask you",
+        "subtitle": "The game changer"
+      }
     },
     {
       "narration": "Instead of guessing what you need, Claude can interview you. Just add: before you answer, ask me three questions.",
-      "visual": {"type": "app", "title": "Questions first", "items": ["Help me plan a birthday party. Before you answer, ask me 3 questions.", "Happy to help! 1. Who is the party for, and how old are they? 2. Roughly how many guests and what's your budget? 3. Do you prefer home, a venue, or outdoors?"]}
+      "visual": {
+        "type": "app",
+        "title": "Questions first",
+        "items": [
+          "Help me plan a birthday party. Before you answer, ask me 3 questions.",
+          "Happy to help! 1. Who is the party for, and how old are they? 2. Roughly how many guests and what's your budget? 3. Do you prefer home, a venue, or outdoors?"
+        ]
+      }
     },
     {
-      "narration": "You answer, and the final result fits you perfectly. It's like working with someone who actually listens.",
-      "visual": {"type": "flow", "title": "How it *works*", "items": ["You ask for help", "Claude asks questions", "You answer", "A tailored result"]}
+      "narration": "You answer, and the final result fits you perfectly. It's perfect for plans, gifts, workouts, and anything personal. Like working with someone who actually listens.",
+      "visual": {
+        "type": "flow",
+        "title": "How it *works*",
+        "items": [
+          "You ask for help",
+          "Claude asks questions",
+          "You answer",
+          "A tailored result"
+        ]
+      }
     },
     {
       "chapter": "4. Show an example",
       "narration": "Power prompt number four. Show an example.",
-      "visual": {"type": "section", "number": "04", "title": "Show an example", "subtitle": "Show, don't just tell"}
+      "visual": {
+        "type": "section",
+        "number": "04",
+        "title": "Show an example",
+        "subtitle": "Show, don't just tell"
+      }
     },
     {
       "narration": "Describing a style is hard. Showing it is easy. Paste an example of what you like, and ask Claude to match it.",
-      "visual": {"type": "compare", "title": "Tell vs *show*", "items": ["Tell: Write it in a fun tone", "Show: Here's one I like, match this style"]}
+      "visual": {
+        "type": "compare",
+        "title": "Tell vs *show*",
+        "items": [
+          "Tell: Write it in a fun tone",
+          "Show: Here's one I like, match this style"
+        ]
+      }
     },
     {
       "narration": "For example: here's a product description I love. Write one in the same style for my handmade candles.",
-      "visual": {"type": "app", "title": "Match my style", "items": ["Here's a description I love: 'Soft, warm, and made to slow your evening down.' Write one like it for my handmade candles.", "Hand-poured, gently scented, and made to turn any quiet night into your favourite part of the day."]}
+      "visual": {
+        "type": "app",
+        "title": "Match my style",
+        "items": [
+          "Here's a description I love: 'Soft, warm, and made to slow your evening down.' Write one like it for my handmade candles.",
+          "Hand-poured, gently scented, and made to turn any quiet night into your favourite part of the day."
+        ]
+      }
+    },
+    {
+      "narration": "You can also say what you don't want. Like: don't make it sound salesy, and avoid long sentences. Telling Claude what to avoid is just as powerful.",
+      "visual": {
+        "type": "concept",
+        "title": "Say what to *avoid*",
+        "subtitle": "\"Don't make it sound salesy\"",
+        "icon": "shield"
+      }
     },
     {
       "chapter": "5. Set the format",
       "narration": "Power prompt number five. Set the format.",
-      "visual": {"type": "section", "number": "05", "title": "Set the format", "subtitle": "Get it the way you want"}
+      "visual": {
+        "type": "section",
+        "number": "05",
+        "title": "Set the format",
+        "subtitle": "Get it the way you want"
+      }
     },
     {
-      "narration": "Tell Claude exactly how you want the answer to look. A table. Bullet points. An email. Or a word limit.",
-      "visual": {"type": "list", "title": "Choose a *format*", "items": ["A table", "Bullet points", "An email", "Under 100 words"]}
+      "narration": "Tell Claude exactly how you want the answer to look. A table. Bullet points. An email. Or a word limit. Word limits are especially useful. Short answers are easier to read, and you can always ask for more detail.",
+      "visual": {
+        "type": "list",
+        "title": "Choose a *format*",
+        "items": [
+          "A table",
+          "Bullet points",
+          "An email",
+          "Under 100 words"
+        ]
+      }
     },
     {
       "narration": "For example: compare three budget laptops for students in a table with price range, battery life, and best use.",
-      "visual": {"type": "app", "title": "Ask for a table", "items": ["Compare 3 types of budget laptop for students in a table: price range, battery life, best use.", "Here's a simple table comparing a Chromebook, a budget Windows laptop and an entry-level MacBook, with typical price range, battery life and what each is best for."]}
+      "visual": {
+        "type": "app",
+        "title": "Ask for a table",
+        "items": [
+          "Compare 3 types of budget laptop for students in a table: price range, battery life, best use.",
+          "Here's a simple table comparing a Chromebook, a budget Windows laptop and an entry-level MacBook, with typical price range, battery life and what each is best for."
+        ]
+      }
     },
     {
       "chapter": "6. Step by step",
       "narration": "Power prompt number six. Go step by step.",
-      "visual": {"type": "section", "number": "06", "title": "Step by step", "subtitle": "For anything tricky"}
+      "visual": {
+        "type": "section",
+        "number": "06",
+        "title": "Step by step",
+        "subtitle": "For anything tricky"
+      }
     },
     {
       "narration": "For anything tricky, like a math problem, a plan, or a decision, ask Claude to walk you through it step by step. You'll understand the answer, not just get it.",
-      "visual": {"type": "app", "title": "Walk me through it", "items": ["Walk me through how to calculate a 15% tip on $48, step by step.", "Step 1: 10% of $48 is $4.80. Step 2: 5% is half of that, $2.40. Step 3: add them together. $4.80 plus $2.40 equals $7.20."]}
+      "visual": {
+        "type": "app",
+        "title": "Walk me through it",
+        "items": [
+          "Walk me through how to calculate a 15% tip on $48, step by step.",
+          "Step 1: 10% of $48 is $4.80. Step 2: 5% is half of that, $2.40. Step 3: add them together. $4.80 plus $2.40 equals $7.20."
+        ]
+      }
     },
     {
-      "narration": "This works brilliantly for learning. Instead of copying an answer, you see the thinking behind it.",
-      "visual": {"type": "concept", "title": "*Learn* the why", "subtitle": "See the thinking, not just the answer", "icon": "learn"}
+      "narration": "This works brilliantly for learning. Instead of copying an answer, you see the thinking behind it. It's also great for big goals, like planning a move or learning a new skill, broken into small, doable steps.",
+      "visual": {
+        "type": "concept",
+        "title": "*Learn* the why",
+        "subtitle": "See the thinking, not just the answer",
+        "icon": "learn"
+      }
     },
     {
       "chapter": "7. Critique & improve",
       "narration": "And power prompt number seven. Critique and improve.",
-      "visual": {"type": "section", "number": "07", "title": "Critique & improve", "subtitle": "Make anything better"}
+      "visual": {
+        "type": "section",
+        "number": "07",
+        "title": "Critique & improve",
+        "subtitle": "Make anything better"
+      }
     },
     {
       "narration": "Paste anything you've written, and ask Claude to find the weak spots first, then improve it. Like: here's my cover letter, what are its three biggest weaknesses, then rewrite it.",
-      "visual": {"type": "app", "title": "Find the weak spots", "subtitle": "cover_letter.docx", "highlight": "attach", "items": ["What are the 3 biggest weaknesses in my cover letter? Then rewrite it.", "1. The opening is generic. 2. It lists duties instead of results. 3. It doesn't say why you want this company. Here's a stronger version that fixes all three."]}
+      "visual": {
+        "type": "app",
+        "title": "Find the weak spots",
+        "subtitle": "cover_letter.docx",
+        "highlight": "attach",
+        "items": [
+          "What are the 3 biggest weaknesses in my cover letter? Then rewrite it.",
+          "1. The opening is generic. 2. It lists duties instead of results. 3. It doesn't say why you want this company. Here's a stronger version that fixes all three."
+        ]
+      }
     },
     {
-      "narration": "Asking for the weaknesses first makes the improvements smarter, because Claude explains what's wrong before fixing it.",
-      "visual": {"type": "flow", "title": "Critique, then *fix*", "items": ["Paste your work", "Find the weak spots", "Rewrite and improve"]}
+      "narration": "Asking for the weaknesses first makes the improvements smarter, because Claude explains what's wrong before fixing it. Try it with emails, essays, social posts, even your own business ideas.",
+      "visual": {
+        "type": "flow",
+        "title": "Critique, then *fix*",
+        "items": [
+          "Paste your work",
+          "Find the weak spots",
+          "Rewrite and improve"
+        ]
+      }
     },
     {
       "chapter": "Combine them",
       "narration": "Now here's the real secret. Combine them. Use a role, your level, and a format in one prompt.",
-      "visual": {"type": "concept", "title": "*Combine* them", "subtitle": "Role + level + format in one prompt", "icon": "puzzle"}
+      "visual": {
+        "type": "concept",
+        "title": "*Combine* them",
+        "subtitle": "Role + level + format in one prompt",
+        "icon": "puzzle"
+      }
     },
     {
       "narration": "Like this. Act as a patient tutor. Explain photosynthesis like I'm a beginner, in five short bullet points.",
-      "visual": {"type": "app", "title": "All together", "items": ["Act as a patient tutor. Explain photosynthesis like I'm a beginner, in 5 short bullet points.", "Plants make their own food. They use sunlight as energy. They take in water and carbon dioxide. They turn these into sugar. And they release oxygen, the air we breathe."]}
+      "visual": {
+        "type": "app",
+        "title": "All together",
+        "items": [
+          "Act as a patient tutor. Explain photosynthesis like I'm a beginner, in 5 short bullet points.",
+          "Plants make their own food. They use sunlight as energy. They take in water and carbon dioxide. They turn these into sugar. And they release oxygen, the air we breathe."
+        ]
+      }
+    },
+    {
+      "narration": "Pro tip: save your best prompts in a note on your phone. Next time, just copy, paste, and change the details. It saves a ton of time.",
+      "visual": {
+        "type": "concept",
+        "title": "*Save* your best prompts",
+        "subtitle": "Copy, paste, change the details",
+        "icon": "doc"
+      }
     },
     {
       "narration": "And remember, even with great prompts, always double-check important facts. Better prompts mean better answers, but you're still in charge.",
-      "visual": {"type": "compare", "title": "You're in *charge*", "items": ["Risky: Trust every answer blindly", "Smart: Double-check what matters"]}
+      "visual": {
+        "type": "compare",
+        "title": "You're in *charge*",
+        "items": [
+          "Risky: Trust every answer blindly",
+          "Smart: Double-check what matters"
+        ]
+      }
     },
     {
       "chapter": "Recap",
       "narration": "Let's recap the seven power prompts. Explain at my level. Give it a role. Let it ask you. Show an example.",
-      "visual": {"type": "list", "title": "The *7* prompts", "items": ["Explain at my level", "Give it a role", "Let it ask you", "Show an example"]}
+      "visual": {
+        "type": "list",
+        "title": "The *7* prompts",
+        "items": [
+          "Explain at my level",
+          "Give it a role",
+          "Let it ask you",
+          "Show an example"
+        ]
+      }
     },
     {
       "narration": "Set the format. Go step by step. And critique and improve.",
-      "visual": {"type": "list", "title": "The *7* prompts", "items": ["Set the format", "Step by step", "Critique & improve"]}
+      "visual": {
+        "type": "list",
+        "title": "The *7* prompts",
+        "items": [
+          "Set the format",
+          "Step by step",
+          "Critique & improve"
+        ]
+      }
     },
     {
       "narration": "Pick one and try it today. Then subscribe, because next lesson, we'll use Claude with your own files: PDFs, notes, and images.",
-      "visual": {"type": "cta", "title": "*Subscribe*", "subtitle": "Next: Claude with your files"}
+      "visual": {
+        "type": "cta",
+        "title": "*Subscribe*",
+        "subtitle": "Next: Claude with your files"
+      }
     }
   ]
 }

@@ -73,7 +73,7 @@ def _edge(text: str, out_mp3: Path, voice: str, rate: str) -> list[Word]:
     return _attach_punctuation(text, words)
 
 
-def _edge_by_sentence(text: str, out_wav: Path, voice: str, rate: str, retries: int = 8) -> list[Word]:
+def _edge_by_sentence(text: str, out_wav: Path, voice: str, rate: str, retries: int = 15) -> list[Word]:
     """Voice one sentence at a time (short requests are far more reliable), retrying each, then join them."""
     sentences = [s for s in re.split(r"(?<=[.!?])\s+", text.strip()) if s]
     words: list[Word] = []
@@ -89,7 +89,7 @@ def _edge_by_sentence(text: str, out_wav: Path, voice: str, rate: str, retries: 
                 except Exception:
                     if attempt == retries - 1:
                         raise
-                    time.sleep(min(1.0 + attempt, 5.0))
+                    time.sleep(min(2.0 * (attempt + 1), 20.0))  # back off up to ~3 min per sentence
             wav = out_wav.with_suffix(f".s{k}.wav")
             _to_wav(mp3, wav, 0.0)
             mp3.unlink(missing_ok=True)

@@ -11,17 +11,18 @@ export type AvatarProps = {
   accent?: string;
   font?: "sans" | "grotesk";
   lower?: boolean;
+  size?: number;
 };
 
 /** Minimal flat monogram: one or two colours, lots of space, tiny accent dot. */
-const Minimal: React.FC<AvatarProps> = ({ text = "MHR", bg = "#111113", fg = "#F5F3EE", accent = "#00D4FF", font = "sans", lower }) => (
+const Minimal: React.FC<AvatarProps> = ({ text = "MHR", bg = "#111113", fg = "#F5F3EE", accent = "#00D4FF", font = "sans", lower, size }) => (
   <AbsoluteFill style={{ background: bg, alignItems: "center", justifyContent: "center" }}>
     <div style={{ display: "flex", alignItems: "baseline" }}>
       <span
         style={{
           fontFamily: font === "grotesk" ? DISPLAY : SANS,
           fontWeight: font === "grotesk" ? 700 : 900,
-          fontSize: lower ? 250 : 210,
+          fontSize: size ?? (lower ? 250 : 210),
           letterSpacing: lower ? -14 : -12,
           color: fg,
           lineHeight: 1,
@@ -29,7 +30,7 @@ const Minimal: React.FC<AvatarProps> = ({ text = "MHR", bg = "#111113", fg = "#F
       >
         {lower ? text.toLowerCase() : text}
       </span>
-      <span style={{ width: 44, height: 44, borderRadius: 22, background: accent, marginLeft: 10 }} />
+      <span style={{ width: (size ?? 210) * 0.2, height: (size ?? 210) * 0.2, borderRadius: "50%", background: accent, marginLeft: (size ?? 210) * 0.05 }} />
     </div>
   </AbsoluteFill>
 );

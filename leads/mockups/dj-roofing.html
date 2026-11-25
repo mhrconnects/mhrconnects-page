@@ -24,7 +24,7 @@
   .call{background:var(--orange);color:#fff;text-decoration:none;font-weight:700;padding:11px 18px;border-radius:8px;white-space:nowrap}
 
   .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:80px 0 90px}
-  .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  .hero .wrap{display:block}
   .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:6px 14px;border-radius:99px;font-size:.85rem;margin-bottom:18px}
   .badge .s{color:#ffc43d;letter-spacing:1px}
   .hero h1{font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.1;letter-spacing:-.5px}
@@ -64,6 +64,9 @@
   .step p{color:var(--muted);font-size:.95rem}
 
   .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .ph{aspect-ratio:4/3;border:2px dashed #c5ccd8;border-radius:14px;background:var(--light);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted);text-align:center}
+  .ph span{font-size:2rem}
+  .ph b{color:var(--navy)}
   .job{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff}
   .job svg{display:block;width:100%;height:auto}
   .job div{padding:14px 16px}
@@ -117,7 +120,7 @@
 </style>
 </head>
 <body>
-<div class="demo">Free demo design for D J Roofing. Phone number, reviews and job photos are examples to be replaced with your real ones.</div>
+<div class="demo">Free demo design for D J Roofing. Phone number and reviews are examples. Your real details and job photos will be added.</div>
 
 <header>
   <div class="wrap">
@@ -141,26 +144,6 @@
         <a class="btn ghost" href="tel:01610000000">Call now</a>
       </div>
       <div class="ticks"><span>Free quotes</span><span>Fully insured</span><span>Work guaranteed</span></div>
-    </div>
-    <div class="hero-art">
-      <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="20" width="360" height="280" rx="24" fill="#ffffff" fill-opacity=".06"/>
-        <circle cx="320" cy="70" r="26" fill="#ffc43d"/>
-        <polygon points="70,170 200,70 330,170" fill="#c8532d"/>
-        <g stroke="#a8401f" stroke-width="2" opacity=".7">
-          <line x1="96" y1="150" x2="304" y2="150"/><line x1="122" y1="130" x2="278" y2="130"/><line x1="148" y1="110" x2="252" y2="110"/><line x1="174" y1="90" x2="226" y2="90"/>
-        </g>
-        <rect x="255" y="88" width="24" height="46" fill="#7a3a22"/>
-        <rect x="90" y="170" width="220" height="110" fill="#f1e6d6"/>
-        <rect x="120" y="195" width="44" height="40" rx="4" fill="#7fb6e6"/><rect x="236" y="195" width="44" height="40" rx="4" fill="#7fb6e6"/>
-        <rect x="182" y="215" width="36" height="65" rx="4" fill="#0f1c33"/>
-        <rect x="70" y="276" width="260" height="6" rx="3" fill="#0a1426" opacity=".4"/>
-        <g transform="translate(270 190)">
-          <rect width="110" height="58" rx="12" fill="#fff"/>
-          <text x="14" y="25" font-family="system-ui" font-size="13" font-weight="700" fill="#0f1c33">Job done ✓</text>
-          <text x="14" y="44" font-family="system-ui" font-size="12" fill="#f5b301">★★★★★</text>
-        </g>
-      </svg>
     </div>
   </div>
 </section>
@@ -208,20 +191,11 @@
   <div class="wrap">
     <div class="eyebrow">Recent work</div>
     <h2>Jobs we're proud of</h2>
-    <p class="sub">Your real before-and-after photos from Facebook go here.</p>
+    <p class="sub">Photos of your real jobs will be added here. Just send them over and I'll put them in.</p>
     <div class="gallery">
-      <div class="job">
-        <svg viewBox="0 0 300 180"><rect width="300" height="180" fill="#cfe3f4"/><polygon points="40,110 150,40 260,110" fill="#5b6472"/><g stroke="#48505c" stroke-width="2"><line x1="70" y1="92" x2="230" y2="92"/><line x1="100" y1="72" x2="200" y2="72"/></g><rect x="60" y="110" width="180" height="70" fill="#e9dccb"/><rect x="90" y="128" width="34" height="28" fill="#7fb6e6"/><rect x="176" y="128" width="34" height="28" fill="#7fb6e6"/></svg>
-        <div><b>Full slate re-roof</b><small>Urmston · example</small></div>
-      </div>
-      <div class="job">
-        <svg viewBox="0 0 300 180"><rect width="300" height="180" fill="#d9ead3"/><rect x="40" y="70" width="220" height="16" fill="#3b3f46"/><rect x="50" y="86" width="200" height="94" fill="#efe4d4"/><rect x="80" y="110" width="50" height="40" fill="#7fb6e6"/><rect x="170" y="110" width="50" height="70" fill="#0f1c33"/></svg>
-        <div><b>GRP flat roof extension</b><small>Stretford · example</small></div>
-      </div>
-      <div class="job">
-        <svg viewBox="0 0 300 180"><rect width="300" height="180" fill="#f4e3cf"/><polygon points="30,100 150,30 270,100" fill="#b5502c"/><rect x="40" y="100" width="220" height="10" fill="#fff"/><rect x="40" y="110" width="220" height="70" fill="#e8d8c4"/><rect x="235" y="110" width="8" height="70" fill="#fff"/></svg>
-        <div><b>New gutters &amp; fascias</b><small>Sale · example</small></div>
-      </div>
+      <div class="ph"><span>📷</span><b>Job photo 1</b><small>Your photo goes here</small></div>
+      <div class="ph"><span>📷</span><b>Job photo 2</b><small>Your photo goes here</small></div>
+      <div class="ph"><span>📷</span><b>Job photo 3</b><small>Your photo goes here</small></div>
     </div>
   </div>
 </section>

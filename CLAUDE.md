@@ -14,6 +14,7 @@ stats log, compliance checklist and open items. Update it whenever a decision is
 or stats arrive, and commit the change.
 
 Key rules:
+- Every script must follow `HOOKS.md` (hooks + retention playbook).
 - The brand must never be linkable to the owner's main channel (MHR Connects): no "MHR" anywhere.
 - Run the compliance checklist in `STRATEGY.md` §7 before delivering any video.
 - One voice per video. In this sandbox, render with `--voice-engine edge` so a flaky voice connection fails

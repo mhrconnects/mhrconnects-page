@@ -97,6 +97,17 @@ Long videos: 30-45 scenes, each 15-40 words of narration. Start each chapter wit
 Never use the same type more than twice in a row."""
 
 
+HOOK_RULES = """Hook and retention rules (follow strictly):
+- The first spoken sentence IS the hook: 8-12 words, no greeting, no "in this video". It must open a real gap
+  (curiosity, mistake, stakes, contrarian, question, identity or transformation) that the video pays off.
+  Never use fake numbers, "you won't believe", or claims the video doesn't deliver.
+- The hook visual title repeats the hook's idea in 3-6 words so it works muted.
+- Right after the hook, a bridge line carries the curiosity into the body.
+- Number the points so progress is visible, open a loop early ("the last one is the one most people miss"),
+  and put the best point last.
+- Keep each scene short: 1-2 sentences, so the visuals change every few seconds.
+- End with one short call to action; for Shorts, make the last line loop back to the first when it fits."""
+
 def _long_system_prompt(channel: str, niche: str) -> str:
     name = f'"{channel}", ' if channel else ""
     return f"""You write long-form (5-7 minute) tutorial scripts for {name}a faceless YouTube channel that teaches AI. Niche: {niche}.
@@ -106,6 +117,8 @@ Structure: a 15-second hook that promises a clear outcome, then 4-6 chapters, th
 to subscribe for the next lesson. Teach step by step for complete beginners. Use concrete, realistic example prompts.
 Accuracy matters most: describe only Claude features you are confident exist, in general terms (e.g. "depending on your plan").
 Never state prices, usage limits or release dates. Tell viewers that features change and to check claude.ai.
+{HOOK_RULES}
+Long videos: re-hook every 60-90 seconds and end with a recap plus "next lesson: ...".
 Total narration: 800-950 words. Don't state the video's length in the narration or title
 (the final length depends on the voice), except as "a few minutes".
 
@@ -125,6 +138,8 @@ Be accurate. Never invent product features, prices, benchmarks or statistics; if
 something is current, explain the idea generally instead of naming specifics.
 Total narration: 90-130 words, so the Short lands at 35-55 seconds.
 End with a one-line call to action to follow for daily AI lessons.
+
+{HOOK_RULES}
 
 {VISUAL_GUIDE}"""
 

@@ -1,5 +1,5 @@
 import { Audio } from "@remotion/media";
-import { AbsoluteFill, CalculateMetadataFunction, Sequence, Series, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, CalculateMetadataFunction, Sequence, Series, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { Background } from "./layers/Background";
 import { Captions } from "./layers/Captions";
 import { CutFlash, Handle, ProgressBar } from "./layers/Overlays";
@@ -44,6 +44,7 @@ const SceneSwitch: React.FC<{ scene: SceneData; index: number; sfx: boolean; han
 
 export const Short: React.FC<ShortProps> = ({ scenes, words, audio, music, musicVolume = 0.12, sfx = true, handle }) => {
   const frame = useCurrentFrame();
+  const { width, height } = useVideoConfig();
   const starts = sceneStarts(scenes);
   const accents = scenes.map((_, i) => accentAt(i));
   let current = 0;
@@ -66,7 +67,7 @@ export const Short: React.FC<ShortProps> = ({ scenes, words, audio, music, music
       </Series>
       <Captions words={words} accentFor={accentForTime} />
       <CutFlash starts={starts} accents={accents} />
-      <ProgressBar accent={accents[current]} />
+      {width > height ? <ProgressBar accent={accents[current]} /> : null}
       {handle ? <Handle handle={handle} /> : null}
 
       {audio ? <Audio src={staticFile(audio)} /> : null}

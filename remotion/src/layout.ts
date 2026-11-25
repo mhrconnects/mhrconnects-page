@@ -19,14 +19,16 @@ export const useLayout = () => {
       }
     : {
         landscape,
-        stageTop: 170,
-        stageHeight: 1060,
-        stageX: 80,
-        contentMaxWidth: width - 160,
-        contentScale: 1,
-        captionTop: 1290,
-        captionSize: 86,
-        captionStroke: 12,
+        // Kept inside the TikTok/Reels/Shorts safe zone: clear of the top tabs,
+        // the right-hand buttons and the bottom caption/username area.
+        stageTop: 240,
+        stageHeight: 960,
+        stageX: 90,
+        contentMaxWidth: width - 180,
+        contentScale: 0.86,
+        captionTop: 1215,
+        captionSize: 62,
+        captionStroke: 9,
         handleBottom: 250,
       };
 };

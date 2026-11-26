@@ -62,7 +62,7 @@
 ### Long-form (YouTube)
 | # | Title | Script file | Rendered | Posted (YT) | Notes |
 |---|---|---|---|---|---|
-| 1 | Claude for Beginners: The Complete Basics in 5 Minutes | `examples/long_01_claude_basics.json` | ✅ 4:46 | ✅ 2026-11-23 | Thumbnail pending verification |
+| 1 | Claude for Beginners: The Complete Basics in 5 Minutes | `examples/long_01_claude_basics.json` | ✅ 4:46 | ✅ Re-uploaded to new channel 2026-11-26 | Thumbnail pending verification |
 | 2 | 7 Power Prompts to Get Better Answers From Claude | `examples/long_02_power_prompts.json` | ✅ 4:54 | ⏳ Post Day 3 (~2026-11-25) | Description says "Learn AI with MHR" → change to new name |
 | 3 | Claude With Your Files (PDFs, Notes & Images) | not written | | | Start when owner says "go" |
 | 4 | Claude Projects Explained | | | | |
@@ -78,7 +78,12 @@
 | Why AI makes things up | `examples/02_hallucinations.json` | ⏳ | | | | |
 | The 4-part prompt | `examples/03_prompt_formula.json` | ✅ (old voice) | | | | Re-render |
 | How AI learns | `examples/04_how_ai_learns.json` | ⏳ | | | | |
-| Ep 1 chapters → ~6 clips | Ep 1 | ⏳ needs clipper tool | | | | |
+| Ep1 Clip 1: What is Claude? | Ep 1 | ✅ | | ✅ | ✅ | |
+| Ep1 Clip 2: Start using Claude | Ep 1 | ✅ | | ✅ | | |
+| Ep1 Clip 3: First chat secret | Ep 1 | ✅ | | ✅ | | |
+| Ep1 Clip 4: Better prompts | Ep 1 | ✅ | | ✅ | | |
+| Ep1 Clip 5: Claude reads your files | Ep 1 | ✅ | | | | |
+| Ep1 Clip 6: Don't trust AI until… | Ep 1 | ✅ | | | | |
 | Ep 2 chapters → ~8 clips | Ep 2 | ⏳ needs clipper tool | | | | |
 
 ---
@@ -143,6 +148,14 @@ Not affiliated with Anthropic or any AI company. All tools shown are used for ed
 | 2026-11-23 | Reuse the existing small TikTok money account if it isn't traceable (make old posts private) |
 | 2026-11-23 | Brand name: The AI Classroom, handle @the_aiclassroom |
 
+## 8b. Accounts & tools
+- Posting via the **Metricool connector**: brand "The AI Classroom" (blogId 8371172). Instagram @theaiclassroomhq,
+  TikTok @the_aiclassroom, YouTube new channel. Facebook not connected. Post ONLY to this brand.
+- ⛔ Never use the Google Drive/Sheets/Gmail connectors (owner's MHR Connects account). The old Google Sheet tracker
+  lives there and is retired; this file is the tracker.
+- Posting cadence for clips: 3 a day (12pm, 5pm, 8pm UK).
+- Media for Metricool: owner uploads clips to the **brand Gmail's** Google Drive and sends share links.
+
 ## 9. Open items
 - [ ] Owner: choose name + check handle availability
 - [ ] Owner: TikTok money account follower count / traceability
@@ -150,4 +163,6 @@ Not affiliated with Anthropic or any AI company. All tools shown are used for ed
 - [ ] Owner: rename YouTube channel + update Ep 1/Ep 2 descriptions
 - [ ] Strategist: build long-video → vertical clip tool, then cut Ep 1 + Ep 2
 - [ ] Owner: phone verification for custom thumbnails
-- [ ] Strategist: Ep 3 on owner's "go"
+- [ ] Strategist: Ep 3 on owner's "go" (daily auto-production paused)
+- [ ] Owner: upload Ep 1 clips to brand Drive, connect brand Drive in Metricool, send 6 share links → strategist schedules 3/day
+- [ ] Owner: upload Ep 2 to YouTube

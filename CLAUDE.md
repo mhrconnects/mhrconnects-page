@@ -13,6 +13,12 @@ Brand & Setup, Checklist, Decisions). Update it with the Google Sheets tools whe
 stats log, compliance checklist and open items. Update it whenever a decision is made, a video is made or posted,
 or stats arrive, and commit the change.
 
+**Posting: Metricool connector** (brand "The AI Classroom", blogId `8371172`, timezone Europe/London):
+Instagram @theaiclassroomhq, TikTok @the_aiclassroom, YouTube channel UCGZp7S_ttRlo77dbUenHBgg. Facebook not connected yet.
+ONLY ever post to this brand. Never connect, schedule or post to any other account (owner's rule). Always set the
+AI-generated flags (instagram isAiGenerated, tiktok isAigc, youtube isAiGeneratedContent) and madeForKids false.
+Only schedule when the owner asks.
+
 Key rules:
 - Every script must follow `HOOKS.md` (hooks + retention playbook).
 - The brand must never be linkable to the owner's main channel (MHR Connects): no "MHR" anywhere.
